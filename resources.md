@@ -33,3 +33,8 @@ on the back burner in my mind as something I want to try to implement</p>
 <p><b>Ex-Zodiac</b></p>
 
 ![Ex-Zodiac](https://i0.wp.com/thebetanetwork.net/wp-content/uploads/2022/07/Vocals.00_00_06_16.Still003.jpg?resize=800%2C450&ssl=1)
+
+## Link to game engine discussion
+<p>https://www.reddit.com/r/gamedev/comments/rrg0z4/what_is_a_good_engine_to_make_2d_games_in/</p>
+<p>The reddit thread above links to a discussion deciding the best engine to make a 2d game in. The consitent suggestions throughout the thread are: Godot, Unity, and Construct 3. Unity is better for 3D games,
+and actually renders 2D games as 3D, which accourding to some users can cause some unwanted errors with the camera. Construct 3, appears to be a great choice for 2D games, and offers a simplifed way to create the game with minimal coding.</p>
