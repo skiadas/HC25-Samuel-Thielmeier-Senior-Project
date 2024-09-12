@@ -5,7 +5,8 @@
 number / strength of the enimes increasing the further in the user explores.</p>
 
 ## Gameplay Assets I plan to use
-<p>I have found multiple community made assets on the Godot Asset page. Of the assets I found that I <b>know</b> I will be using, are: </p>
+<p><b>I have found multiple community made assets on the Godot Asset page. Of the assets I found that I know I will be using, are: </b></p>
+  
 <p>Simple Enemy AI -> Will make it so that enemies that see the player will follow the player, and I will be adding functionality to attack the player.</p>
 
 ![enemy (1)](https://github.com/user-attachments/assets/1c1924b3-ec78-4fa5-bcec-7f075324200c)
