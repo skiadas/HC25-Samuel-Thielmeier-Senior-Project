@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=3 uid="uid://in2d5hdwss74"]
+[gd_scene load_steps=64 format=3 uid="uid://in2d5hdwss74"]
 
 [ext_resource type="Texture2D" uid="uid://bqsge52kjr572" path="res://WarriorDownIdle.png" id="1_gp3t3"]
 [ext_resource type="Script" path="res://player.gd" id="1_nrq4n"]
@@ -417,11 +417,19 @@ animations = [{
 "speed": 10.0
 }]
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bqcqj"]
+radius = 6.0
+height = 24.0
+
 [node name="player" type="CharacterBody2D"]
 script = ExtResource("1_nrq4n")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -1)
 sprite_frames = SubResource("SpriteFrames_40sp4")
-animation = &"walk_up"
+animation = &"walk_left"
 autoplay = "idle_down"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1)
+shape = SubResource("CapsuleShape2D_bqcqj")
