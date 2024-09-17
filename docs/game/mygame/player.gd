@@ -8,6 +8,7 @@ var last_direction = Vector2.ZERO
 
 var animated_sprite
 
+# Is like the setup function in Arduino
 func _ready():
 	# refrences the AnimatedSprite2D player node as the animated_sprite variable
 	animated_sprite = $AnimatedSprite2D
