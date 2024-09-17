@@ -1,17 +1,24 @@
-# My Project's Features
+# My Project Proposal
 
 ## Gameplay Goals
-<p>The game I plan to create will be a rougelike. I want to my game to be the user exploring a dungeon I will create, possibly with multiple floors. Enemies will be scattered throughout this dungeon, with the
-number / strength of the enimes increasing the further in the user explores.</p>
+<p>The game I plan to create will be a rougelike. I want to my game to be the user exploring a world, with dungeons, caves, forests, etc. Enemies will be scattered throughout this world, with the number and strength of the enimes increasing the further in the user explores. The game will be a top-down 2D 'retro' style game, similar to the first <b>Legend of Zelda</b> game. I plan on having 8 directional movement, with at least 3 different types of attacks: normal, smash, and tackle (which will double as a dodge mechanic). I have found multiple 'grunt' enemies, but I also plan to have 'bosses' before the player can continue to the next area. While the grunt enemies may have just a simple "follow and attack" type of script, I plan to have the bosses follow an attack pattern, where the player would have to dodge projectiles/wide-range attacks.</p>
 
-## Gameplay Assets I plan to use
-<p><b>I have found multiple community made assets on the Godot Asset page. Of the assets I found that I know I will be using, are: </b></p>
-  
-<p>Simple Enemy AI -> Will make it so that enemies that see the player will follow the player, and I will be adding functionality to attack the player.</p>
+## Where I'm creating my Game
+<p>The Godot Game Engine[1] is cross-platform, open-sourced, and capable of being installed through steam for free. The development engine can run on multiple platforms to create games(eg; Linux, macOS, Windows) and games created can then be exported to more platforms(eg; HTML, both Andriod and iOS phones/tablets, and even consoles like Xbox and Playstation). Godot enables developers to create both 3D and 2D games using multiple programming languages, such as C++, C#, and GDScript (a programming language exclusive to the Godot game engine). GDScript shares a lot of similarities to Python, so it is pretty easy to pick up if your familar with Python already.</p>
 
-![enemy (1)](https://github.com/user-attachments/assets/1c1924b3-ec78-4fa5-bcec-7f075324200c)
+![Godot_icon svg (1)](https://github.com/user-attachments/assets/406ea17b-dae4-4c37-96fe-b9138f450965)
 
-<p>Better Terrain -> A community made tool to make creating maps a more streamline experience, which will make it easier for me to create a more customizable map. Additionally, with whatever maps I create
-the API makes it easier to update/customize them from code</p>
 
-![maps (1)](https://github.com/user-attachments/assets/8ba2329e-4536-40a5-9a62-8c65ceef25df)
+## Character Assets I plan to Use
+<p> itch.io is a online community where developers can find and sell assets. A creater on there, Foozle[2], offers multiple assets for free that are available to be used for commercial/non-commercial games. If you go to his page on itch.io, there are dozens of both sprite sheets, tilesets, and tilemaps for users to download. I personally really like the design of the sprites in the 'Lucifier' section.</p>
+
+![warrior](https://github.com/user-attachments/assets/62d2c027-5d41-4db0-9939-05dda44cddf3)![goblin](https://github.com/user-attachments/assets/9df36918-5b8d-437b-b9fa-013e9029c56d)![skeleton](https://github.com/user-attachments/assets/d30ee197-b9d7-442a-b201-62abe3ff5a23)
+
+
+
+
+
+## References
+<p>[1] The Godot Foundation, "Your free, open-source game engine," [Online]. Available: https://godotengine.org/. [Accessed: September 13, 2024]</p>
+<p>[2] Foozle, "Free game assets," [Online]. Available: https://foozlecc.itch.io/. [Accessed: September 14, 2024]</p>
+
