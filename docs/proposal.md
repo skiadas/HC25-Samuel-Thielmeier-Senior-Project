@@ -14,11 +14,13 @@
 
 ![warrior](https://github.com/user-attachments/assets/62d2c027-5d41-4db0-9939-05dda44cddf3)![goblin](https://github.com/user-attachments/assets/9df36918-5b8d-437b-b9fa-013e9029c56d)![skeleton](https://github.com/user-attachments/assets/d30ee197-b9d7-442a-b201-62abe3ff5a23)
 
-
+## Physics Engine I plan to use
+<p> The Godot Engine uses a built-in physics engine, PhysicsServer2D[3], which can directly create and manipulate all physics objects. PhysicsServer2D offers four different types of physics bodies: Area2D, StaticBody2D, RigidBody2D, and CharacterBody2D. Issues users might encounter when using PhysicsServer2D might include: unstable and wobbly stacked objects, unstable cylinder collision shapes, unreliable physics simulation when far away from the world origin. In Godot 4.x, users are able to use GDExtension to integrate their own physics. The Rapier Physics 2D[4] is one of these third party extensions. There are 2 versions of this physics engine, one that is crossplatform deterministic, which is the version I plan to use. Going to the github page for the Rapier Physics 2D, users are able to see the physic engine at work, showcasing the engine's stability, fluids (2D and 3D), and ghost collisions (which is being compared to Godot's physics engine). From looking at these short demos, the Rapier Physics engine appears much more stable and consistent than the built in engine.</p>
 
 
 
 ## References
 <p>[1] The Godot Foundation, "Your free, open-source game engine," [Online]. Available: https://godotengine.org/. [Accessed: September 13, 2024]</p>
 <p>[2] Foozle, "Free game assets," [Online]. Available: https://foozlecc.itch.io/. [Accessed: September 14, 2024]</p>
+<p>[3] </p>
 
