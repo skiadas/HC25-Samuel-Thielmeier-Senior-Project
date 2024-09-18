@@ -70,8 +70,8 @@ and actually renders 2D games as 3D, which accourding to some users can cause so
 <p>TileMapLayer terrain system that allows for simpler, more flexible rules. It covers all features of Godot 3's autotiles, along with big improvements on Godot 4's rule system, and has a straightforward API for applying and updating terrains from code.</p>
 
 ### Rapier Physics 2D
-<p>https://godotengine.org/asset-library/asset/2267</p>
-<p>A 2D drop-in replacement for the Godot engine that adds stability and fluids. This version is deterministic, just not cross platform deterministic.</p>
+<p>https://godotengine.org/asset-library/asset/2815</p>
+<p>A 2D drop-in replacement for the Godot engine that adds stability and fluids. This version is cross platform deterministic</p>
 
 ### Burst Particles 2D
 <p>https://godotengine.org/asset-library/asset/1814</p>
