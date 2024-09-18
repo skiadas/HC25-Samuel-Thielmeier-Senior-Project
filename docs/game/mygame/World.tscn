@@ -1698,7 +1698,7 @@ tile_map_data = PackedByteArray("AAAAAAAAAAAAAAAAAAAAAAEAAAAAAAEAAAAAAAIAAAAAAAI
 tile_set = SubResource("TileSet_ikusx")
 
 [node name="player" parent="grass" instance=ExtResource("3_3onta")]
-position = Vector2(683, 190)
+position = Vector2(628, 549)
 
 [node name="Camera2D" type="Camera2D" parent="grass/player"]
 limit_left = 0
