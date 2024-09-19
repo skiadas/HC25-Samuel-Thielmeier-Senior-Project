@@ -22,5 +22,6 @@
 ## References
 <p>[1] The Godot Foundation, "Your free, open-source game engine," [Online]. Available: https://godotengine.org/. [Accessed: September 13, 2024]</p>
 <p>[2] Foozle, "Free game assets," [Online]. Available: https://foozlecc.itch.io/. [Accessed: September 14, 2024]</p>
-<p>[3] </p>
+<p>[3] The Godot Community, "Godot Engine 4.3 documentation: PhysicsServer2D," [Online]. Available: https://docs.godotengine.org/en/stable/classes/class_physicsserver2d.html. [Accessed: September 16, 2024]</p>
+<p>[4] appsinacup, "godot-rapier-physics," [Online]. Available: https://github.com/appsinacup/godot-rapier-physics. [Accessed: September 16, 2024]</p>
 
