@@ -45,7 +45,7 @@ func pick_random_direction():
 	new_direction = new_direction.normalized()
 	last_direction = new_direction # Update last direction variable
 	
-func update_animation(direction, run = false):
+func update_animation(direction, run):
 	if player_in_range and run:
 		if direction.x < 0:
 			animated_sprite.play("attack_left")
@@ -55,21 +55,25 @@ func update_animation(direction, run = false):
 			animated_sprite.play("attack_up")
 		elif direction.y > 0:
 			animated_sprite.play("attack_down")
-			
+		
 	else:
 		if direction.x < 0:
-			animated_sprite.play("walk_left")
+			animated_sprite.play("fly_left")
 		elif direction.x > 0:
-			animated_sprite.play("walk_right")
+			animated_sprite.play("fly_right")
 		elif direction.y < 0:
-			animated_sprite.play("walk_up")
+			animated_sprite.play("fly_up")
 		elif direction.y > 0:
-			animated_sprite.play("walk_down")
+			animated_sprite.play("fly_down")
+
+	
+
 
 func _on_territory_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Player"):
 		player = body
 		run = true
+		update_animation(last_direction, run)
 
 
 func _on_territory_body_exited(body: Node2D) -> void:
@@ -77,15 +81,18 @@ func _on_territory_body_exited(body: Node2D) -> void:
 		player = null
 		run = false
 		pick_random_direction()
-		#update_animation(last_direction)
+		update_animation(last_direction, run)
 		
 func _on_hitbox_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Player"):
 		player_in_range = true
 		print("Attacking")
+		update_animation(last_direction, run)
+
 
 
 func _on_hitbox_body_exited(body: Node2D) -> void:
 	if body.is_in_group("Player"):
 		player_in_range = false
 		print("Player exited hitbox")
+		update_animation(last_direction, run)

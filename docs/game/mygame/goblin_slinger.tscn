@@ -1019,8 +1019,8 @@ script = ExtResource("1_bw3hc")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_nf4i0")
-animation = &"idle_down"
-frame_progress = 0.529455
+animation = &"attack_right"
+frame_progress = 0.776466
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 4)
@@ -1029,14 +1029,12 @@ shape = SubResource("CapsuleShape2D_0hkvc")
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 
 [node name="hitbox" type="Area2D" parent="."]
-visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
 position = Vector2(0, 2)
 shape = SubResource("CapsuleShape2D_vhvae")
 
 [node name="territory" type="Area2D" parent="."]
-visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="territory"]
 shape = SubResource("CircleShape2D_p2bvc")

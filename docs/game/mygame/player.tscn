@@ -1006,12 +1006,12 @@ animations = [{
 "speed": 10.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bqcqj"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nsjwx"]
 radius = 4.0
-height = 28.0
+height = 24.0
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_q8s2d"]
-radius = 6.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ixfrd"]
+size = Vector2(10, 28)
 
 [node name="player" type="CharacterBody2D"]
 z_index = 1
@@ -1023,18 +1023,23 @@ script = ExtResource("1_nrq4n")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -1)
 sprite_frames = SubResource("SpriteFrames_40sp4")
-animation = &"idle_down"
+animation = &"swing_down"
+frame = 4
+frame_progress = 0.693241
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
-shape = SubResource("CapsuleShape2D_bqcqj")
+y_sort_enabled = true
+position = Vector2(0, -3)
+shape = SubResource("CapsuleShape2D_nsjwx")
 
 [node name="hitbox" type="Area2D" parent="."]
 collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
-position = Vector2(0, -1)
-shape = SubResource("CapsuleShape2D_q8s2d")
+visible = false
+position = Vector2(0, -3)
+shape = SubResource("RectangleShape2D_ixfrd")
 one_way_collision_margin = 0.0
 
 [connection signal="body_entered" from="hitbox" to="." method="_on_hitbox_body_entered"]

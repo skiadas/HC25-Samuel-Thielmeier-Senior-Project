@@ -33,6 +33,8 @@ func _physics_process(delta):
 		animated_sprite.play("walk_up")
 	elif direction.y > 0:
 		animated_sprite.play("walk_down")
+	elif Input.is_action_pressed("swing"):
+		animated_sprite.play("swing_down")
 	else:
 		if last_direction.x < 0:
 			animated_sprite.play("idle_left")
@@ -42,7 +44,7 @@ func _physics_process(delta):
 			animated_sprite.play("idle_up")
 		elif last_direction.y > 0:
 			animated_sprite.play("idle_down")
-		
+			
 	move_and_slide()
 
 
