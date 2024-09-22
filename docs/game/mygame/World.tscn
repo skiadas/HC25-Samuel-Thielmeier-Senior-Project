@@ -1759,12 +1759,10 @@ texture = ExtResource("7_qjvku")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="NavigationRegion2D/walls/river2D"]
 position = Vector2(0, 4.11106)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_vhfyo")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="NavigationRegion2D/walls/river2D"]
 position = Vector2(0, -5.75548)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_nhwnq")
 
 [node name="river2D2" type="StaticBody2D" parent="NavigationRegion2D/walls"]
@@ -1778,7 +1776,6 @@ texture = ExtResource("7_qjvku")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="NavigationRegion2D/walls/river2D2"]
 position = Vector2(0, 0.0357533)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_jvfu4")
 
 [node name="river2D3" type="StaticBody2D" parent="NavigationRegion2D/walls"]
@@ -1792,7 +1789,6 @@ texture = ExtResource("7_qjvku")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="NavigationRegion2D/walls/river2D3"]
 position = Vector2(0, 1.21544)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_2bhwx")
 
 [node name="river2D4" type="StaticBody2D" parent="NavigationRegion2D/walls"]
@@ -1800,7 +1796,6 @@ position = Vector2(-490.179, 95.839)
 scale = Vector2(19.4819, 0.753073)
 
 [node name="Sprite2D" type="Sprite2D" parent="NavigationRegion2D/walls/river2D4"]
-scale = Vector2(1, 1)
 texture = ExtResource("7_qjvku")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="NavigationRegion2D/walls/river2D4"]
@@ -1813,7 +1808,6 @@ scale = Vector2(8.91877, -18.4121)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="NavigationRegion2D/walls/invis_wall"]
 position = Vector2(0.381667, -3.8147e-06)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_lmmje")
 
 [node name="invis_wall2" type="StaticBody2D" parent="NavigationRegion2D/walls"]
@@ -1822,7 +1816,6 @@ scale = Vector2(8.91877, -18.4121)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="NavigationRegion2D/walls/invis_wall2"]
 position = Vector2(0.381667, -3.8147e-06)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_lmmje")
 
 [node name="invis_wall3" type="StaticBody2D" parent="NavigationRegion2D/walls"]
@@ -1831,7 +1824,6 @@ scale = Vector2(8.91877, -18.4121)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="NavigationRegion2D/walls/invis_wall3"]
 position = Vector2(129.768, 8.47637)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_uh5u1")
 
 [node name="invis_wall4" type="StaticBody2D" parent="NavigationRegion2D/walls"]
@@ -1840,5 +1832,4 @@ scale = Vector2(8.91877, -18.4121)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="NavigationRegion2D/walls/invis_wall4"]
 position = Vector2(130.913, -8.30924)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_uh5u1")

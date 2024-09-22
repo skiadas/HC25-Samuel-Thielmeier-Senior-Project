@@ -1,17 +1,16 @@
 extends CharacterBody2D
-
 # Sets the move speed of the player (change to increase/decrease)
 var SPEED = 100.0
-
 # Declares the last direction as a variable to call
 var last_direction = Vector2.ZERO
-
 var animated_sprite
+var enemy_in_range = false
 
 # Is like the setup function in Arduino
 func _ready():
 	# refrences the AnimatedSprite2D player node as the animated_sprite variable
 	animated_sprite = $AnimatedSprite2D
+	add_to_group("Player")
 
 func _physics_process(delta):
 	# X is -1 if 'left' is pressed, 1 if 'right' is pressed, and 0 otherwise
@@ -50,7 +49,11 @@ func _physics_process(delta):
 
 
 func _on_hitbox_body_entered(body: Node2D) -> void:
-	pass # Replace with function body.
+	if body.is_in_group("Enemy"):
+		enemy_in_range = true
+		print("Getting attacked!")
 	
 func _on_hitbox_body_exited(body: Node2D) -> void:
-	pass # Replace with function body.
+	if body.is_in_group("Enemy"):
+		enemy_in_range = false
+		print("Enemy exited the hitbox!")
