@@ -1,4 +1,4 @@
-[gd_scene load_steps=148 format=3 uid="uid://7mybdearsbx"]
+[gd_scene load_steps=150 format=3 uid="uid://7mybdearsbx"]
 
 [ext_resource type="Script" path="res://goblin_slinger.gd" id="1_bw3hc"]
 [ext_resource type="Texture2D" uid="uid://cmacgucjmkto1" path="res://Goblin_Slinger_Pixel_Art/Foozle_2DC0014_Lucifer_Goblin_Slinger_Pixel_Art/Down/Png/GoblinSlingerDownAttack01.png" id="1_nq6sc"]
@@ -1005,6 +1005,13 @@ animations = [{
 radius = 4.0
 height = 16.0
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vhvae"]
+radius = 6.0
+height = 26.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_p2bvc"]
+radius = 59.0085
+
 [node name="goblin_slinger" type="CharacterBody2D"]
 z_index = 4
 y_sort_enabled = true
@@ -1018,3 +1025,25 @@ frame_progress = 0.529455
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 4)
 shape = SubResource("CapsuleShape2D_0hkvc")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+
+[node name="hitbox" type="Area2D" parent="."]
+visible = false
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
+position = Vector2(0, 2)
+shape = SubResource("CapsuleShape2D_vhvae")
+
+[node name="territory" type="Area2D" parent="."]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="territory"]
+shape = SubResource("CircleShape2D_p2bvc")
+
+[connection signal="body_entered" from="hitbox" to="." method="_on_hitbox_body_entered"]
+[connection signal="body_exited" from="hitbox" to="." method="_on_hitbox_body_exited"]
+[connection signal="body_entered" from="territory" to="." method="_on_territory_body_entered"]
+[connection signal="body_exited" from="territory" to="." method="_on_territory_body_exited"]

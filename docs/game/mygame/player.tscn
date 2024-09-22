@@ -1,4 +1,4 @@
-[gd_scene load_steps=150 format=3 uid="uid://in2d5hdwss74"]
+[gd_scene load_steps=151 format=3 uid="uid://in2d5hdwss74"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_nrq4n"]
 [ext_resource type="Texture2D" uid="uid://35nix2sabmmt" path="res://Warrior_Pixel_Art/Foozle_2DC0009_Lucifer_Warrior_Pixel_Art/Down/Png/WarriorDownIdle.png" id="2_2coxm"]
@@ -1010,6 +1010,9 @@ animations = [{
 radius = 4.0
 height = 28.0
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_q8s2d"]
+radius = 6.0
+
 [node name="player" type="CharacterBody2D"]
 z_index = 1
 y_sort_enabled = true
@@ -1020,9 +1023,19 @@ script = ExtResource("1_nrq4n")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -1)
 sprite_frames = SubResource("SpriteFrames_40sp4")
-animation = &"swing_right"
-frame_progress = 0.647379
+animation = &"idle_down"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
 shape = SubResource("CapsuleShape2D_bqcqj")
+
+[node name="hitbox" type="Area2D" parent="."]
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
+position = Vector2(0, -1)
+shape = SubResource("CapsuleShape2D_q8s2d")
+one_way_collision_margin = 0.0
+
+[connection signal="body_entered" from="hitbox" to="." method="_on_hitbox_body_entered"]
+[connection signal="body_exited" from="hitbox" to="." method="_on_hitbox_body_exited"]
