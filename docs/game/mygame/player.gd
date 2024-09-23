@@ -1,3 +1,4 @@
+
 extends CharacterBody2D
 # Sets the move speed of the player (change to increase/decrease)
 var SPEED = 100.0
@@ -20,35 +21,43 @@ func _physics_process(delta):
 	var direction = Input.get_vector("left","right","up","down")
 	velocity = direction * SPEED
 	
-	
 	# Remembers last direction player was facing
 	if direction != Vector2.ZERO:
 		last_direction = direction
-		
-	if direction.x < 0:
-		animated_sprite.play("walk_left")
-	elif direction.x > 0:
-		animated_sprite.play("walk_right")
-	elif direction.y < 0:
-		animated_sprite.play("walk_up")
-	elif direction.y > 0:
-		animated_sprite.play("walk_down")
-	elif Input.is_action_pressed("swing"):
-		animated_sprite.play("swing_down")
-	else:
+
+	# Handle attack input first
+	if Input.is_action_pressed("swing"):
+		# Play the attack animation based on last direction
 		if last_direction.x < 0:
-			animated_sprite.play("idle_left")
+			animated_sprite.play("swing_left")
 		elif last_direction.x > 0:
-			animated_sprite.play("idle_right")
+			animated_sprite.play("swing_right")
 		elif last_direction.y < 0:
-			animated_sprite.play("idle_up")
+			animated_sprite.play("swing_up")
 		elif last_direction.y > 0:
-			animated_sprite.play("idle_down")
+			animated_sprite.play("swing_down")
+	else:
+		# Handle movement input
+		if direction.x < 0:
+			animated_sprite.play("walk_left")
+		elif direction.x > 0:
+			animated_sprite.play("walk_right")
+		elif direction.y < 0:
+			animated_sprite.play("walk_up")
+		elif direction.y > 0:
+			animated_sprite.play("walk_down")
+		else:
+			# Handle idle based on last direction
+			if last_direction.x < 0:
+				animated_sprite.play("idle_left")
+			elif last_direction.x > 0:
+				animated_sprite.play("idle_right")
+			elif last_direction.y < 0:
+				animated_sprite.play("idle_up")
+			elif last_direction.y > 0:
+				animated_sprite.play("idle_down")
 			
 	move_and_slide()
-
-
-
 
 func _on_hitbox_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Enemy"):

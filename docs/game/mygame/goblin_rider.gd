@@ -20,7 +20,7 @@ func _ready():
 	
 func _physics_process(delta):
 	if run:
-		var direction_to_player = target_to_chase.global_position
+		var direction_to_player = (target_to_chase.global_position - global_position).normalized()
 		navigation_agent.target_position = target_to_chase.global_position
 		velocity = global_position.direction_to(navigation_agent.get_next_path_position()) * run_speed
 		update_animation(direction_to_player, true)
@@ -47,15 +47,16 @@ func pick_random_direction():
 	
 func update_animation(direction, run):
 	if player_in_range and run:
-		if direction.x < 0:
-			animated_sprite.play("attack_left")
-		elif direction.x > 0:
-			animated_sprite.play("attack_right")
-		elif direction.y < 0:
-			animated_sprite.play("attack_up")
-		elif direction.y > 0:
-			animated_sprite.play("attack_down")
-		
+		if abs(direction.x) > abs(direction.y):
+			if direction.x < 0:
+				animated_sprite.play("attack_left")
+			elif direction.x > 0:
+				animated_sprite.play("attack_right")
+		else:
+			if direction.y < 0:
+				animated_sprite.play("attack_up")
+			elif direction.y > 0:
+				animated_sprite.play("attack_down")
 	else:
 		if direction.x < 0:
 			animated_sprite.play("fly_left")
