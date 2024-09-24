@@ -6,6 +6,7 @@ var SPEED = 100.0
 var last_direction = Vector2.ZERO
 var animated_sprite
 var enemy_in_range = false
+var is_attacking = false
 
 # Is like the setup function in Arduino
 func _ready():
@@ -19,7 +20,11 @@ func _physics_process(delta):
 	#
 	# Mapped 'left' to 'A', 'right' to 'D', 'up' to 'W', and 'down' to 'S' in Project -> Project Settings -> Input Map
 	var direction = Input.get_vector("left","right","up","down")
-	velocity = direction * SPEED
+	# checks if player is currently attacking and stops movement if player is
+	if is_attacking:
+		velocity = direction
+	if not is_attacking:
+		velocity = direction * SPEED
 	
 	# Remembers last direction player was facing
 	if direction != Vector2.ZERO:
@@ -27,6 +32,8 @@ func _physics_process(delta):
 
 	# Handle attack input first
 	if Input.is_action_pressed("swing"):
+		# when player is attacking will stop player movement
+		is_attacking = true
 		# Play the attack animation based on last direction
 		if last_direction.x < 0:
 			animated_sprite.play("swing_left")
@@ -36,7 +43,22 @@ func _physics_process(delta):
 			animated_sprite.play("swing_up")
 		elif last_direction.y > 0:
 			animated_sprite.play("swing_down")
+			
+	elif Input.is_action_pressed("smash"):
+		# when player is attacking will stop player movement
+		is_attacking = true
+		# Play the attack animation based on last direction
+		if last_direction.x < 0:
+			animated_sprite.play("smash_left")
+		elif last_direction.x > 0:
+			animated_sprite.play("smash_right")
+		elif last_direction.y < 0:
+			animated_sprite.play("smash_up")
+		elif last_direction.y > 0:
+			animated_sprite.play("smash_down")
 	else:
+		# will resume player movement when not attacking
+		is_attacking = false
 		# Handle movement input
 		if direction.x < 0:
 			animated_sprite.play("walk_left")
