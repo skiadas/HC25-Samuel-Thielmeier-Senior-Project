@@ -1734,6 +1734,8 @@ limit_right = 1150
 limit_bottom = 655
 
 [node name="goblin_rider" parent="grass" node_paths=PackedStringArray("target_to_chase") instance=ExtResource("8_dc7jh")]
+z_index = 2
+y_sort_enabled = true
 position = Vector2(371, 297)
 target_to_chase = NodePath("../player")
 

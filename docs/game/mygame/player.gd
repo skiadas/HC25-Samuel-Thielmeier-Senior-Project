@@ -10,6 +10,7 @@ var is_attacking = false
 
 # Is like the setup function in Arduino
 func _ready():
+	#platform_floor_layers = false
 	# refrences the AnimatedSprite2D player node as the animated_sprite variable
 	animated_sprite = $AnimatedSprite2D
 	add_to_group("Player")

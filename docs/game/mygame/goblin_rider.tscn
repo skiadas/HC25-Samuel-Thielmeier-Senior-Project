@@ -474,10 +474,11 @@ radius = 7.0
 height = 18.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sdt2v"]
-radius = 8.0
+radius = 16.0
+height = 32.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qyse5"]
-radius = 80.0999
+radius = 83.0
 
 [node name="goblin_rider" type="CharacterBody2D"]
 collision_layer = 2
@@ -492,6 +493,7 @@ animation = &"attack_left"
 visible = false
 z_index = 2
 y_sort_enabled = true
+rotation = 1.57197
 shape = SubResource("CapsuleShape2D_ff0ln")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
@@ -502,7 +504,6 @@ shape = SubResource("CapsuleShape2D_ff0ln")
 shape = SubResource("CapsuleShape2D_sdt2v")
 
 [node name="territory" type="Area2D" parent="."]
-visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="territory"]
 shape = SubResource("CircleShape2D_qyse5")
