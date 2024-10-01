@@ -13,7 +13,7 @@
 
 
 ## Character Assets I plan to Use
-<p> itch.io is a online community where developers can find and sell assets. A creater on there, Foozle[5], offers multiple assets for free that are available to be used for commercial/non-commercial games. If you go to his page on itch.io, there are dozens of both sprite sheets, tilesets, and tilemaps for users to download. I personally really like the design of the sprites in the 'Lucifier' section.</p>
+<p> itch.io is a online community where developers can find and sell assets. A creater on there, Foozle[5], offers multiple assets for free that are available to be used for commercial/non-commercial games. If you go to his page (https://foozlecc.itch.io/) on itch.io, there are dozens of both sprite sheets, tilesets, and tilemaps for users to download. I personally really like the design of the sprites in the 'Lucifier' section.</p>
 
 ![warrior](https://github.com/user-attachments/assets/62d2c027-5d41-4db0-9939-05dda44cddf3)![goblin](https://github.com/user-attachments/assets/9df36918-5b8d-437b-b9fa-013e9029c56d)![skeleton](https://github.com/user-attachments/assets/d30ee197-b9d7-442a-b201-62abe3ff5a23)
 
@@ -23,7 +23,7 @@
 
 
 ## References
-<p>[1] Phaser Studio Inc, "Phaser: Open Source HTML5 Game Framework," [Online]. Available: <p>https://phaser.io/</p>. [Accessed: September 10, 2024]</p>
+<p>[1] Phaser Studio Inc, "Phaser: Open Source HTML5 Game Framework," [Online]. Available: <a href="(https://phaser.io/)"></a>. [Accessed: September 10, 2024]</p>
 <p>[2] Unity Technologies, "Unite Keynote," [Online]. Available: https://unity.com. [Accessed: September 10, 2024]</p>
 <p>[3] The Godot Foundation, "Your free, open-source game engine," [Online]. Available: https://godotengine.org/. [Accessed: September 10, 2024]</p>
 <p>[4] The Godot Engine community, "Godot: Asset Library," [Online]. Available: https://godotengine.org/asset-library/asset. [Accessed: September 10, 2024]</p>
