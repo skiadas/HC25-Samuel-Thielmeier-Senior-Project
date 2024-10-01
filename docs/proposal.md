@@ -23,7 +23,7 @@
 
 
 ## References
-<p>[1] Phaser Studio Inc, "Phaser: Open Source HTML5 Game Framework," [Online]. Available: <a href="(https://phaser.io/)"></a>. [Accessed: September 10, 2024]</p>
+<p>[1] Phaser Studio Inc, "Phaser: Open Source HTML5 Game Framework," [Online]. Available: https://phaser.io/. [Accessed: September 10, 2024]</p>
 <p>[2] Unity Technologies, "Unite Keynote," [Online]. Available: https://unity.com. [Accessed: September 10, 2024]</p>
 <p>[3] The Godot Foundation, "Your free, open-source game engine," [Online]. Available: https://godotengine.org/. [Accessed: September 10, 2024]</p>
 <p>[4] The Godot Engine community, "Godot: Asset Library," [Online]. Available: https://godotengine.org/asset-library/asset. [Accessed: September 10, 2024]</p>
