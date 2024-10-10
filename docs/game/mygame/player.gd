@@ -14,6 +14,10 @@ func _ready():
 	# refrences the AnimatedSprite2D player node as the animated_sprite variable
 	animated_sprite = $AnimatedSprite2D
 	add_to_group("Player")
+	
+	# makes the player face down in direction at start of the scene playing and plays the idle_down animation right away
+	last_direction = Vector2(0,1)
+	animated_sprite.play("idle_down")
 
 func _physics_process(delta):
 	# X is -1 if 'left' is pressed, 1 if 'right' is pressed, and 0 otherwise
