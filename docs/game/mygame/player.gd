@@ -1,9 +1,12 @@
 extends CharacterBody2D
 
 var SPEED = 100.0
+var TACKLE_SPEED = 200.0  # Speed boost during tackle
+var TACKLE_DURATION = 0.5  # Tackle duration in seconds
 var last_direction = Vector2.ZERO
 var enemy_in_range = false
 var is_attacking = false
+var is_tackling = false
 
 var direction : Vector2 = Vector2.ZERO
 
@@ -18,22 +21,26 @@ func _process(delta):
 
 @warning_ignore("unused_parameter")
 func _physics_process(delta):
-	# Prevent movement if player is attacking
-	if is_attacking:
+	# Prevent movement if player is attacking or tackling
+	if is_attacking or is_tackling:
 		velocity = Vector2.ZERO
 	else:
-		# Get input direction and move the character if not attacking
+		# Get input direction and move the character if not attacking or tackling
 		direction = Input.get_vector("left", "right", "up", "down").normalized()
 		velocity = direction * SPEED
 
-	if direction != Vector2.ZERO and not is_attacking:
+	if direction != Vector2.ZERO and not (is_attacking or is_tackling):
 		last_direction = direction
 
+	if is_tackling:
+		# Move in the last direction during tackle
+		velocity = last_direction * TACKLE_SPEED
+	
 	move_and_slide()
 
 func update_animation_parameters():
 	# Handle idle/walking animations
-	if velocity == Vector2.ZERO and not is_attacking:
+	if velocity == Vector2.ZERO and not is_attacking and not is_tackling:
 		animation_tree["parameters/conditions/idle"] = true
 		animation_tree["parameters/conditions/is_walking"] = false
 	else:
@@ -44,15 +51,24 @@ func update_animation_parameters():
 	if Input.is_action_just_pressed("swing") and not is_attacking:
 		is_attacking = true
 		animation_tree["parameters/conditions/swing"] = true
-		await get_tree().create_timer(1.0).timeout  # Wait for 1 second (swing duration)
+		await get_tree().create_timer(0.5).timeout  # Wait for swing duration
 		is_attacking = false
 		animation_tree["parameters/conditions/swing"] = false
+
+	# Handle the tackle animation
+	if Input.is_action_just_pressed("tackle") and not is_tackling:
+		is_tackling = true
+		animation_tree["parameters/conditions/tackle"] = true
+		await get_tree().create_timer(TACKLE_DURATION).timeout  # Wait for tackle duration
+		is_tackling = false
+		animation_tree["parameters/conditions/tackle"] = false
 
 	# Update blend position (for direction in animations)
 	if direction != Vector2.ZERO:
 		animation_tree["parameters/idle/blend_position"] = direction
 		animation_tree["parameters/swing/blend_position"] = direction
 		animation_tree["parameters/walk/blend_position"] = direction
+		animation_tree["parameters/tackle/blend_position"] = last_direction
 
 func _on_hitbox_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Enemy"):
