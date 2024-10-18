@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=4 uid="uid://h87sjdy3c6qt"]
+[gd_scene load_steps=22 format=4 uid="uid://h87sjdy3c6qt"]
 
 [ext_resource type="Texture2D" uid="uid://bwcovycs475gd" path="res://Pixel Art Top Down - Basic/Texture/TX Tileset Grass.png" id="1_ce82u"]
 [ext_resource type="Texture2D" uid="uid://b483mxhj3rbpm" path="res://Pixel Art Top Down - Basic/Texture/TX Struct.png" id="2_0fpsj"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://dcgxojvssritn" path="res://Pixel Art Top Down - Basic/Texture/TX Props.png" id="3_qwcrl"]
 [ext_resource type="Texture2D" uid="uid://c4hf2pyk746uh" path="res://Pixel Art Top Down - Basic/TILESET VILLAGE TOP DOWN/WATER TILE - DAY.png" id="7_qjvku"]
 [ext_resource type="PackedScene" uid="uid://c7npstrg7tbib" path="res://goblin_rider.tscn" id="8_dc7jh"]
+[ext_resource type="PackedScene" uid="uid://7mybdearsbx" path="res://goblin_slinger.tscn" id="8_lt83r"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_i2s5d"]
 texture = ExtResource("1_ce82u")
@@ -1727,16 +1728,14 @@ tile_set = SubResource("TileSet_ikusx")
 [node name="player" parent="grass" instance=ExtResource("3_3onta")]
 position = Vector2(194, 335)
 
-[node name="Camera2D" type="Camera2D" parent="grass/player"]
-limit_left = 0
-limit_top = 0
-limit_right = 1150
-limit_bottom = 655
-
 [node name="goblin_rider" parent="grass" node_paths=PackedStringArray("target_to_chase") instance=ExtResource("8_dc7jh")]
 z_index = 2
 y_sort_enabled = true
 position = Vector2(371, 297)
+target_to_chase = NodePath("../player")
+
+[node name="goblin_slinger" parent="grass" node_paths=PackedStringArray("target_to_chase") instance=ExtResource("8_lt83r")]
+position = Vector2(282, 432)
 target_to_chase = NodePath("../player")
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]

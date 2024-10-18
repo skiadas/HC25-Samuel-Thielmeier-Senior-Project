@@ -3,38 +3,50 @@ extends CharacterBody2D
 @export var target_to_chase: CharacterBody2D
 var speed = 50
 var last_direction = Vector2.ZERO
-var animated_sprite
+@onready var animation_tree : AnimationTree = $AnimationTree
 var direction_change_timer = 0
 var direction_change_interval = 3
 var run_speed = 75
 var run = false
 var player = null
 var player_in_range = false
+var is_attacking
 
 
 func _ready():
-	animated_sprite = $AnimatedSprite2D
+	animation_tree.active = true
+	# fixes error where enemy gets stuck on top of player head
+	platform_floor_layers = false
 	# Picks a random direction for the sprite to start in
 	pick_random_direction()
 	add_to_group("Enemy")
 	
+func _process(delta):
+	update_animation_parameters()
+
 func _physics_process(delta):
 	if run:
-		var direction_to_player = target_to_chase.global_position
+		var direction_to_player = (target_to_chase.global_position - global_position).normalized()
 		navigation_agent.target_position = target_to_chase.global_position
 		velocity = global_position.direction_to(navigation_agent.get_next_path_position()) * run_speed
-		update_animation(direction_to_player, true)
+		last_direction = direction_to_player # Update the last direction to face the player
+
+	elif player_in_range:
+		# Attack the player, set direction to face the player
+		var direction_to_player = (target_to_chase.global_position - global_position).normalized()
+		last_direction = direction_to_player # Ensure the attack faces the player
+	
 	else:
-	# counting the time since start
+		# Random walking direction logic
 		direction_change_timer += delta
 		if direction_change_timer >= direction_change_interval:
-			pick_random_direction() # Changes direction after timer reaches 5 seconds
-			direction_change_timer = 0 # Resets timer
-			
+			pick_random_direction()
+			direction_change_timer = 0
+
 		velocity = last_direction * speed
-		update_animation(last_direction, false)
-	
+
 	move_and_slide()
+
 
 # Picks a random direction for enemy
 func pick_random_direction():
@@ -45,26 +57,21 @@ func pick_random_direction():
 	new_direction = new_direction.normalized()
 	last_direction = new_direction # Update last direction variable
 	
-func update_animation(direction, run = false):
-	if player_in_range and run:
-		if direction.x < 0:
-			animated_sprite.play("attack_left")
-		elif direction.x > 0:
-			animated_sprite.play("attack_right")
-		elif direction.y < 0:
-			animated_sprite.play("attack_up")
-		elif direction.y > 0:
-			animated_sprite.play("attack_down")
-			
+func update_animation_parameters():
+	
+	# Updates the conditions in the AnimationTree -> Parameters -> Conditions
+	if(not velocity == Vector2.ZERO and not is_attacking):
+		animation_tree["parameters/conditions/is_walking"] = true
 	else:
-		if direction.x < 0:
-			animated_sprite.play("walk_left")
-		elif direction.x > 0:
-			animated_sprite.play("walk_right")
-		elif direction.y < 0:
-			animated_sprite.play("walk_up")
-		elif direction.y > 0:
-			animated_sprite.play("walk_down")
+		animation_tree["parameters/conditions/is_walking"] = false
+	if(is_attacking == true):
+		animation_tree["parameters/conditions/attack"] = true
+	else:
+		animation_tree["parameters/conditions/attack"] = false
+	
+	if last_direction != Vector2.ZERO:
+		animation_tree["parameters/walk/blend_position"] = last_direction
+		animation_tree["parameters/attack/blend_position"] = last_direction
 
 func _on_territory_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Player"):
@@ -77,15 +84,17 @@ func _on_territory_body_exited(body: Node2D) -> void:
 		player = null
 		run = false
 		pick_random_direction()
-		#update_animation(last_direction)
 		
 func _on_hitbox_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Player"):
 		player_in_range = true
+		is_attacking = true
+		animation_tree["parameters/conditions/attack"] = true
 		print("Attacking")
-
 
 func _on_hitbox_body_exited(body: Node2D) -> void:
 	if body.is_in_group("Player"):
 		player_in_range = false
+		is_attacking = false
+		animation_tree["parameters/conditions/attack"] = false
 		print("Player exited hitbox")

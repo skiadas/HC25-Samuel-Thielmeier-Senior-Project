@@ -10,6 +10,7 @@ var is_tackling = false
 
 var direction : Vector2 = Vector2.ZERO
 
+# Imports the AnimationTree node as the variable animation_tree
 @onready var animation_tree : AnimationTree = $AnimationTree
 
 func _ready():
@@ -26,6 +27,7 @@ func _physics_process(delta):
 		velocity = Vector2.ZERO
 	else:
 		# Get input direction and move the character if not attacking or tackling
+		# Keys mapped in Project -> Project Settings -> Input Map
 		direction = Input.get_vector("left", "right", "up", "down").normalized()
 		velocity = direction * SPEED
 
@@ -58,6 +60,15 @@ func update_animation_parameters():
 	# Handle the tackle animation
 	if Input.is_action_just_pressed("tackle") and not is_tackling:
 		is_tackling = true
+		
+		# Restrict tackle to 4 cardinal directions
+		if abs(last_direction.x) > abs(last_direction.y):
+			# Move horizontally (left or right)
+			last_direction = Vector2(last_direction.x, 0).normalized()
+		else:
+			# Move vertically (up or down)
+			last_direction = Vector2(0, last_direction.y).normalized()
+
 		animation_tree["parameters/conditions/tackle"] = true
 		await get_tree().create_timer(TACKLE_DURATION).timeout  # Wait for tackle duration
 		is_tackling = false
@@ -68,6 +79,9 @@ func update_animation_parameters():
 		animation_tree["parameters/idle/blend_position"] = direction
 		animation_tree["parameters/swing/blend_position"] = direction
 		animation_tree["parameters/walk/blend_position"] = direction
+	
+	# Ensure tackle uses corrected direction (4 cardinal directions only)
+	if is_tackling:
 		animation_tree["parameters/tackle/blend_position"] = last_direction
 
 func _on_hitbox_body_entered(body: Node2D) -> void:
