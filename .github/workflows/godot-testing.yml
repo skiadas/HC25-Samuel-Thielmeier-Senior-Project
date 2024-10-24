@@ -3,7 +3,7 @@ name: Godot GUT Testing
 on: [ push ]
 
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
     steps:
       # Step 1: Check out the repository
