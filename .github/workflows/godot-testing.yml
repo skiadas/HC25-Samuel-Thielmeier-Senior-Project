@@ -1,0 +1,34 @@
+name: Godot GUT Testing
+
+on: [ push ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      # Step 1: Check out the repository
+      - uses: actions/checkout@v2
+
+      # Step 2: Use croconut's godot-tester action to run the tests
+      - uses: croconut/godot-tester@v5
+        with:
+          # Set to Godot 4.3
+          version: "4.3"
+          
+          # Use stable release type since 4.3 is stable
+          release_type: "stable"
+          
+          # The folder containing your project.godot file
+          path: "docs/game/mygame"
+
+          # Time to wait for assets to import (5 seconds should be enough)
+          import-time: "5"
+
+          # Timeout for running tests (you can adjust based on your test suite)
+          test-timeout: "120"
+
+          # Minimum percentage of tests that must pass (set this to 1.0 for all tests to pass)
+          minimum-pass: "1.0"
+
+          # Directory containing your GUT tests
+          test-dir: "res://test/unit"
