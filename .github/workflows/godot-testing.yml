@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # Step 1: Check out the repository
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       # Step 2: Use croconut's godot-tester action to run the tests
       - uses: croconut/godot-tester@v5
