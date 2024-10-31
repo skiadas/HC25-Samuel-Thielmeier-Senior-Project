@@ -19,7 +19,7 @@ jobs:
           release_type: "stable"
           
           # The folder containing  project.godot file
-          path: "HC25-Samuel-Thielmeier-Senior-Project/game/mygame"
+          path: "game/mygame"
 
           # Time to wait for assets to import (5 seconds should be enough)
           import-time: "5"
