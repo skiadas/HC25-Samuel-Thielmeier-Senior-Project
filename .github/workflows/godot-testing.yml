@@ -1,6 +1,6 @@
 name: Godot GUT Testing
 
-on: [ push ]
+on: [ push, workflow_dispatch ]
 
 jobs:
   build:
