@@ -1,0 +1,15 @@
+name: Manual Godot GUT Testing
+
+on: [ push, workflow_dispatch ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # Step 1: Check out the repository
+      - uses: actions/checkout@v4
+
+      - name: download godot
+        run: |
+          curl https://downloads.tuxfamily.org/godotengine/4.3/Godot_v4.3-stable_linux.x86_64.zip > godot.zip
+          unzip godot.zip
