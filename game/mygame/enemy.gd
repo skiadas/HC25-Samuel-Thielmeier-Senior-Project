@@ -1,5 +1,5 @@
 # Enemy script -> reusable script for the enemy AI behaviors including movement, attack, and updating animation
-# To import to new enemy, right click on new_enemy in their scene, click attatch script, and type in enemy.gd
+# To import to new enemy, right click on new_enemy in their scene, click attatch script, and type in "enemy.gd"
 
 extends CharacterBody2D
 @onready var navigation_agent: NavigationAgent2D = $NavigationAgent2D

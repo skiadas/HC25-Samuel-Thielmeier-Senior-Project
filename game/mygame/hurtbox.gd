@@ -1,3 +1,6 @@
+# Hurtbox script to change the position based on the direction the player/enemy is facing. Can be imported by
+# right clicking on the hurtbox area2d node in whichever scene, then attatch script, and type "hurtbox.gd"
+
 extends Area2D
 
 var facing_direction = Vector2.RIGHT  # Default facing direction

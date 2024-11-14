@@ -1,3 +1,5 @@
+# Script for controlling player movement, attack, and updating animations.
+
 extends CharacterBody2D
 
 var SPEED = 100.0
