@@ -90,13 +90,13 @@
 ![Screenshot 2024-11-14 162538](https://github.com/user-attachments/assets/fb0e3c5d-6694-4156-98d5-ebd6e6e3b17b)
 
 * The <b> if run: </b> statement uses the original follow movement we created earlier to follow the player only if run is True
-* By defualt run is set to false, so it follows the <b> else </b> statement which uses the pick_random_direction() method we created, and the timer in the else statement
+* By defualt run is set to false, so it follows the <b> else </b> statement which uses the pick_random_direction() method we created, and the timer in the else statement is
 to make sure the enemy changes it's direction after a set time has passed.
 * In the 'body_entered' we set run to true for when the player enters the range, and for 'body_exited' run is set to false when the player exits range
 
 ## Summary
 <p> This tutorial expands on an existing enemy AI to make it "smarter" by only following the player when they enter a specific range. After following
-the video tutorial you should have am ememy AI that follows the player. Creating an Area2d node around the enemy to act as a territory we used
+the video tutorial you should have an ememy AI that follows the player. Creating an Area2d node around the enemy to act as a territory we used
 'body_entered' and 'body_exited' signals so the enemy can 'see' the player when they enter the territory. When the player is out of range,
 the enemy moves around the world randomly, creating a more dynamic AI interaction.</p>
 
