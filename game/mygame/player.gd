@@ -12,11 +12,14 @@ var direction : Vector2 = Vector2.ZERO
 
 # Imports the AnimationTree node as the variable animation_tree
 @onready var animation_tree : AnimationTree = $AnimationTree
+# Reference to the hurtbox node
+@onready var hurtbox = $hurtbox
 
 func _ready():
 	animation_tree.active = true
 	add_to_group("Player")
 
+@warning_ignore("unused_parameter")
 func _process(delta):
 	update_animation_parameters()
 
@@ -79,6 +82,11 @@ func update_animation_parameters():
 		animation_tree["parameters/idle/blend_position"] = direction
 		animation_tree["parameters/swing/blend_position"] = direction
 		animation_tree["parameters/walk/blend_position"] = direction
+		
+	if direction != Vector2.ZERO and not (is_attacking or is_tackling):
+		last_direction = direction
+		hurtbox.facing_direction = last_direction  # Update hurtbox facing direction
+		hurtbox.update_position()  # Reposition hurtbox based on direction (update_position() located in hurtbox.gd)
 	
 	# Ensure tackle uses corrected direction (4 cardinal directions only)
 	if is_tackling:

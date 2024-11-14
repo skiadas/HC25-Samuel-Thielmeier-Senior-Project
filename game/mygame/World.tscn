@@ -1728,14 +1728,12 @@ tile_set = SubResource("TileSet_ikusx")
 [node name="player" parent="grass" instance=ExtResource("3_3onta")]
 position = Vector2(194, 335)
 
-[node name="goblin_rider" parent="grass" node_paths=PackedStringArray("target_to_chase") instance=ExtResource("8_dc7jh")]
-z_index = 2
-y_sort_enabled = true
-position = Vector2(371, 297)
-target_to_chase = NodePath("../player")
-
 [node name="goblin_slinger" parent="grass" node_paths=PackedStringArray("target_to_chase") instance=ExtResource("8_lt83r")]
 position = Vector2(282, 432)
+target_to_chase = NodePath("../player")
+
+[node name="goblin_rider" parent="grass" node_paths=PackedStringArray("target_to_chase") instance=ExtResource("8_dc7jh")]
+position = Vector2(402, 287)
 target_to_chase = NodePath("../player")
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]

@@ -1,8 +1,9 @@
-[gd_scene load_steps=70 format=3 uid="uid://in2d5hdwss74"]
+[gd_scene load_steps=72 format=3 uid="uid://in2d5hdwss74"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_nrq4n"]
 [ext_resource type="Texture2D" uid="uid://35nix2sabmmt" path="res://Warrior_Pixel_Art/Foozle_2DC0009_Lucifer_Warrior_Pixel_Art/Down/Png/WarriorDownIdle.png" id="2_2coxm"]
 [ext_resource type="Texture2D" uid="uid://cofpj4vplhvus" path="res://Warrior_Pixel_Art/Foozle_2DC0009_Lucifer_Warrior_Pixel_Art/Down/Png/WarriorDownAttack01.png" id="2_gd4f4"]
+[ext_resource type="Script" path="res://hurtbox.gd" id="3_0syvh"]
 [ext_resource type="Texture2D" uid="uid://cqy10k2pvdoqn" path="res://Warrior_Pixel_Art/Foozle_2DC0009_Lucifer_Warrior_Pixel_Art/Left/Png/WarriorLeftAttack01.png" id="3_12oya"]
 [ext_resource type="Texture2D" uid="uid://djthjjhhmps5p" path="res://Warrior_Pixel_Art/Foozle_2DC0009_Lucifer_Warrior_Pixel_Art/Left/Png/WarriorLeftIdle.png" id="3_swu8v"]
 [ext_resource type="Texture2D" uid="uid://dd73au557tfwp" path="res://Warrior_Pixel_Art/Foozle_2DC0009_Lucifer_Warrior_Pixel_Art/Right/Png/WarriorRightIdle.png" id="4_k4wbj"]
@@ -24,6 +25,9 @@ height = 24.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ixfrd"]
 size = Vector2(10, 28)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3e0ex"]
+size = Vector2(17.5, 17.5)
 
 [sub_resource type="Animation" id="Animation_0mwei"]
 length = 0.001
@@ -1109,22 +1113,43 @@ collision_layer = 3
 collision_mask = 3
 script = ExtResource("1_nrq4n")
 
+[node name="Camera2D" type="Camera2D" parent="."]
+limit_left = 0
+limit_top = 0
+limit_right = 1150
+limit_bottom = 650
+
 [node name="Body" type="Sprite2D" parent="."]
 texture = ExtResource("2_2coxm")
 hframes = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 y_sort_enabled = true
 position = Vector2(0, -3)
 shape = SubResource("CapsuleShape2D_nsjwx")
 
 [node name="hitbox" type="Area2D" parent="."]
+visible = false
 collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
 position = Vector2(0, -3)
 shape = SubResource("RectangleShape2D_ixfrd")
 one_way_collision_margin = 0.0
+
+[node name="hurtbox" type="Area2D" parent="."]
+script = ExtResource("3_0syvh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hurtbox"]
+shape = SubResource("RectangleShape2D_3e0ex")
+
+[node name="ColorRect" type="ColorRect" parent="hurtbox"]
+offset_left = -9.0
+offset_top = -9.0
+offset_right = 9.0
+offset_bottom = 9.0
+color = Color(1, 0.54902, 1, 0.290196)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -1143,12 +1168,6 @@ parameters/idle/blend_position = Vector2(0, 0)
 parameters/swing/blend_position = Vector2(0, 0)
 parameters/tackle/blend_position = Vector2(0, 0)
 parameters/walk/blend_position = Vector2(0, 0)
-
-[node name="Camera2D" type="Camera2D" parent="."]
-limit_left = 0
-limit_top = 0
-limit_right = 1150
-limit_bottom = 650
 
 [connection signal="body_entered" from="hitbox" to="." method="_on_hitbox_body_entered"]
 [connection signal="body_exited" from="hitbox" to="." method="_on_hitbox_body_exited"]

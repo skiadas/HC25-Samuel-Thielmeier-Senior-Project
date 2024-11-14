@@ -1,3 +1,6 @@
+# Enemy script -> reusable script for the enemy AI behaviors including movement, attack, and updating animation
+# To import to new enemy, right click on new_enemy in their scene, click attatch script, and type in enemy.gd
+
 extends CharacterBody2D
 @onready var navigation_agent: NavigationAgent2D = $NavigationAgent2D
 @export var target_to_chase: CharacterBody2D
@@ -61,16 +64,16 @@ func update_animation_parameters():
 	
 	# Updates the conditions in the AnimationTree -> Parameters -> Conditions
 	if(not velocity == Vector2.ZERO and not is_attacking):
-		animation_tree["parameters/conditions/is_walking"] = true
+		animation_tree["parameters/conditions/is_moving"] = true
 	else:
-		animation_tree["parameters/conditions/is_walking"] = false
+		animation_tree["parameters/conditions/is_moving"] = false
 	if(is_attacking == true):
 		animation_tree["parameters/conditions/attack"] = true
 	else:
 		animation_tree["parameters/conditions/attack"] = false
 	
 	if last_direction != Vector2.ZERO:
-		animation_tree["parameters/walk/blend_position"] = last_direction
+		animation_tree["parameters/move/blend_position"] = last_direction
 		animation_tree["parameters/attack/blend_position"] = last_direction
 
 func _on_territory_body_entered(body: Node2D) -> void:
