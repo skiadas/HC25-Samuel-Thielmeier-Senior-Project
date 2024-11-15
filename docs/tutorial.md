@@ -15,15 +15,14 @@
 
 ## Explaining the existing functionality before moving on
 * The navigation agent we set up helps the AI to understand where it can and cannot move, so that the AI knows to move around specified walls
-* The global_positon takes the position of target_to_chase and keeps track of it wherever it is in the game world.
-* The target_to_chase is what the AI will follow, you have to be sure to assign it in your game scene.
+* The **global_positon** takes the position of target_to_chase and keeps track of it wherever it is in the game world.
+* The **target_to_chase** is what the AI will follow, you have to be sure to assign it in your game scene.
 * To assign it click the enemy node in the game scene, the inspector tool should appear off to the side
 * Look in the inspector tool for the target_to_chase variable
 
 ![Screenshot 2024-11-14 143905](https://github.com/user-attachments/assets/b88f2c61-ff4d-4a29-a87c-1547ed848c46)
 
 * While still in the game scene inspecting your enemy, drag the player from the game's child nodes to the slot
-* You will have to do this for every enemy you create, forgetting this step will cause an error and the game will crash
 
 ![Screenshot 2024-11-14 144328](https://github.com/user-attachments/assets/24ac5b69-4b5a-4bee-b3a8-4f63dfcbf89d)
 
@@ -32,6 +31,9 @@
 ![Screenshot 2024-11-14 144429](https://github.com/user-attachments/assets/35edd61e-dcaf-4fb9-9486-8a48bd10ae92)
 
 * Now your enemy should follow the player around the map, you can change the target_to_chase if you want the enemy to follow something else
+
+* If you want to skip this and automatically have the enemy chasing the "Player" group, add in the **_process(delta)** function to look something like this.
+
 
 ## Making the AI smarter
 * Right now the enemy follows the player always no matter the distance between the two, lets change that.
@@ -47,16 +49,16 @@
 
 
 * Since the AI is not supposed to be following the player constantly, we need to create a function that controls the direction the enemy goes until it 'sees' the player
-* Lets create a pick_random_direction() function for our enemy's basic movement, here is mine:
+* Lets create a **pick_random_direction()** function for our enemy's basic movement, here is mine:
 
 ![Screenshot 2024-11-14 152803](https://github.com/user-attachments/assets/c7078f25-c8d8-4ee3-ab70-6948701cdb72)
 
-* var new_direction = Vector2.ZERO -> creates the varible new_direction and initializes it to (0, 0)
-* while new_direction == Vector2.ZERO -> Insures that the chosen direction is never zero as a zero vector has no direction
-* new_direction = Vector2(randi() % 3 -1, randi() % 3 - 1) -> Randomizes so that the values of x and y are -1, 0, or 1. randi % 3 gives values 0, 1 , or 2
-* last_direction = new_direction -> updates the last_direction variable to the newly chosen direction
+* **var new_direction = Vector2.ZERO** -> creates the varible new_direction and initializes it to (0, 0)
+* **while new_direction == Vector2.ZERO** -> Insures that the chosen direction is never zero as a zero vector has no direction
+* **new_direction = Vector2(randi() % 3 -1, randi() % 3 - 1)** -> Randomizes so that the values of x and y are -1, 0, or 1. randi % 3 gives values 0, 1 , or 2
+* **last_direction = new_direction** -> updates the last_direction variable to the newly chosen direction
 
-* Before continuing go to your player script and put in <b>add_to_group("Player")</b>
+* Before continuing go to your player script and put in **add_to_group("Player")**
 
 ![Screenshot 2024-11-14 154954](https://github.com/user-attachments/assets/77620196-fc85-4c3a-a9c2-d4e2111ea7a1)
 
@@ -84,13 +86,13 @@
 ![Screenshot 2024-11-14 161935](https://github.com/user-attachments/assets/130db0a5-e8c9-4feb-98cf-c69fb2a555bb)
 
 * This checks to see if the body that enters the territory is in the group "Player"
-* <b> run </b> wil be used to help control the change for if the player is close enough for the enemy to follow
-* Lets edit the <b> _physics_process(delta) </b> function, here's mine:
+* **run** wil be used to help control the change for if the player is close enough for the enemy to follow
+* Lets edit the **_physics_process(delta)** function, here's mine:
 
 ![Screenshot 2024-11-14 162538](https://github.com/user-attachments/assets/fb0e3c5d-6694-4156-98d5-ebd6e6e3b17b)
 
-* The <b> if run: </b> statement uses the original follow movement we created earlier to follow the player only if run is True
-* By defualt run is set to false, so it follows the <b> else </b> statement which uses the pick_random_direction() method we created, and the timer in the else statement is
+* The **if run:** statement uses the original follow movement we created earlier to follow the player only if run is True
+* By defualt run is set to false, so it follows the else statement which uses the **pick_random_direction()** method we created, and the timer in the else statement is
 to make sure the enemy changes it's direction after a set time has passed.
 * In the 'body_entered' we set run to true for when the player enters the range, and for 'body_exited' run is set to false when the player exits range
 
