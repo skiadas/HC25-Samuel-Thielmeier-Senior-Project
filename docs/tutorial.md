@@ -34,6 +34,12 @@
 
 * If you want to skip this and automatically have the enemy chasing the "Player" group, add in the **_process(delta)** function to look something like this.
 
+![Screenshot 2024-11-15 124845](https://github.com/user-attachments/assets/9349f5b0-375d-4ac3-87b5-134470e558a1)
+
+* Before continuing go to your player script and put in **add_to_group("Player")**
+* This will add your player to a group called "Player" which we will need for our enemy AI
+
+![Screenshot 2024-11-14 154954](https://github.com/user-attachments/assets/77620196-fc85-4c3a-a9c2-d4e2111ea7a1)
 
 ## Making the AI smarter
 * Right now the enemy follows the player always no matter the distance between the two, lets change that.
@@ -58,11 +64,6 @@
 * **new_direction = Vector2(randi() % 3 -1, randi() % 3 - 1)** -> Randomizes so that the values of x and y are -1, 0, or 1. randi % 3 gives values 0, 1 , or 2
 * **last_direction = new_direction** -> updates the last_direction variable to the newly chosen direction
 
-* Before continuing go to your player script and put in **add_to_group("Player")**
-
-![Screenshot 2024-11-14 154954](https://github.com/user-attachments/assets/77620196-fc85-4c3a-a9c2-d4e2111ea7a1)
-
-* This will add your player to a group called "Player" which we will need for our enemy's AI
 * Go to your enemy scene and have your enemy script open
 * Click on the territory node we created earlier
 * Off to the right where the inspector is, click on the Node tab
