@@ -595,8 +595,7 @@ texture = ExtResource("6_7cift")
 hframes = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
-z_index = 2
+z_index = 1
 y_sort_enabled = true
 rotation = 1.57197
 shape = SubResource("CapsuleShape2D_ff0ln")
@@ -604,12 +603,12 @@ shape = SubResource("CapsuleShape2D_ff0ln")
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 
 [node name="hitbox" type="Area2D" parent="."]
-visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
 shape = SubResource("CapsuleShape2D_sdt2v")
 
 [node name="territory" type="Area2D" parent="."]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="territory"]
 shape = SubResource("CircleShape2D_qyse5")
@@ -628,6 +627,7 @@ parameters/attack/blend_position = Vector2(0, 0)
 parameters/move/blend_position = Vector2(0, 0)
 
 [node name="hurtbox" type="Area2D" parent="."]
+visible = false
 script = ExtResource("10_bryva")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hurtbox"]

@@ -125,7 +125,7 @@ func _on_hurtbox_body_entered(body: Node2D) -> void:
 		player_in_range = true
 		is_attacking = true
 		animation_tree["parameters/conditions/attack"] = true
-		print("Attacking")
+		print("Enemy Attacking")
 
 func _on_hurtbox_body_exited(body: Node2D) -> void:
 	# Turns off the attack parameters
