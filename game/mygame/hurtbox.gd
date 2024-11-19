@@ -4,9 +4,8 @@
 extends Area2D
 
 var facing_direction = Vector2.RIGHT  # Default facing direction
-var offset_distance = 15  # Distance from the player
 
-func update_position():
+func update_position(offset_distance):
 	# Move the hurtbox based on the facing direction
 	match facing_direction:
 		Vector2.RIGHT:

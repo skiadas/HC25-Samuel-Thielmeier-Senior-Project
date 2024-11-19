@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://7mybdearsbx"]
+[gd_scene load_steps=39 format=3 uid="uid://7mybdearsbx"]
 
 [ext_resource type="Script" path="res://enemy.gd" id="1_bw3hc"]
 [ext_resource type="Texture2D" uid="uid://cmacgucjmkto1" path="res://Goblin_Slinger_Pixel_Art/Foozle_2DC0014_Lucifer_Goblin_Slinger_Pixel_Art/Down/Png/GoblinSlingerDownAttack01.png" id="1_nq6sc"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://bds128shmi2bt" path="res://Goblin_Slinger_Pixel_Art/Foozle_2DC0014_Lucifer_Goblin_Slinger_Pixel_Art/Up/Png/GoblinSlingerUpAttack01.png" id="4_xs8hm"]
 [ext_resource type="Texture2D" uid="uid://shxn4br4cyic" path="res://Goblin_Slinger_Pixel_Art/Foozle_2DC0014_Lucifer_Goblin_Slinger_Pixel_Art/Down/Png/GoblinSlingerDownRun.png" id="9_5527e"]
 [ext_resource type="Texture2D" uid="uid://dp2ilvo374ql3" path="res://Goblin_Slinger_Pixel_Art/Foozle_2DC0014_Lucifer_Goblin_Slinger_Pixel_Art/Left/Png/GoblinSlingerLeftRun.png" id="10_cxs5k"]
+[ext_resource type="Script" path="res://hurtbox.gd" id="10_sdbna"]
 [ext_resource type="Texture2D" uid="uid://bjwkvvn6jxtif" path="res://Goblin_Slinger_Pixel_Art/Foozle_2DC0014_Lucifer_Goblin_Slinger_Pixel_Art/Right/Png/GoblinSlingerRightRun.png" id="11_62bk1"]
 [ext_resource type="Texture2D" uid="uid://bppfpgr6tj462" path="res://Goblin_Slinger_Pixel_Art/Foozle_2DC0014_Lucifer_Goblin_Slinger_Pixel_Art/Up/Png/GoblinSlingerUpRun.png" id="12_41ntj"]
 
@@ -75,6 +76,7 @@ tracks/3/keys = {
 [sub_resource type="Animation" id="Animation_c0ixw"]
 resource_name = "attack_down"
 length = 2.0
+loop_mode = 1
 step = 0.095
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -128,6 +130,7 @@ tracks/3/keys = {
 [sub_resource type="Animation" id="Animation_lmk52"]
 resource_name = "attack_left"
 length = 2.0
+loop_mode = 1
 step = 0.095
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -181,6 +184,7 @@ tracks/3/keys = {
 [sub_resource type="Animation" id="Animation_u6hxg"]
 resource_name = "attack_right"
 length = 2.0
+loop_mode = 1
 step = 0.095
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -234,6 +238,7 @@ tracks/3/keys = {
 [sub_resource type="Animation" id="Animation_j3nqp"]
 resource_name = "attack_up"
 length = 2.0
+loop_mode = 1
 step = 0.095
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -565,7 +570,6 @@ advance_mode = 2
 advance_condition = &"attack"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_v5k8b"]
-switch_mode = 2
 advance_mode = 2
 advance_condition = &"is_moving"
 
@@ -576,6 +580,9 @@ states/move/node = SubResource("AnimationNodeBlendSpace2D_5xose")
 states/move/position = Vector2(360, 90.9568)
 transitions = ["Start", "move", SubResource("AnimationNodeStateMachineTransition_bdfri"), "move", "attack", SubResource("AnimationNodeStateMachineTransition_cn0fs"), "attack", "move", SubResource("AnimationNodeStateMachineTransition_v5k8b")]
 graph_offset = Vector2(0, -65.0432)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6jwfs"]
+size = Vector2(19, 19)
 
 [node name="goblin_slinger" type="CharacterBody2D"]
 z_index = 4
@@ -593,15 +600,16 @@ shape = SubResource("CapsuleShape2D_0hkvc")
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 
 [node name="hitbox" type="Area2D" parent="."]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
 position = Vector2(0, 2)
 shape = SubResource("CapsuleShape2D_vhvae")
 
 [node name="territory" type="Area2D" parent="."]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="territory"]
-visible = false
 shape = SubResource("CircleShape2D_p2bvc")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -617,7 +625,22 @@ parameters/conditions/is_moving = false
 parameters/attack/blend_position = Vector2(0, 0)
 parameters/move/blend_position = Vector2(-0.00158983, -0.00769234)
 
+[node name="hurtbox" type="Area2D" parent="."]
+script = ExtResource("10_sdbna")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hurtbox"]
+shape = SubResource("RectangleShape2D_6jwfs")
+
+[node name="ColorRect" type="ColorRect" parent="hurtbox"]
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
+color = Color(0.713726, 0.537255, 0.298039, 0.282353)
+
 [connection signal="body_entered" from="hitbox" to="." method="_on_hitbox_body_entered"]
 [connection signal="body_exited" from="hitbox" to="." method="_on_hitbox_body_exited"]
 [connection signal="body_entered" from="territory" to="." method="_on_territory_body_entered"]
 [connection signal="body_exited" from="territory" to="." method="_on_territory_body_exited"]
+[connection signal="body_entered" from="hurtbox" to="." method="_on_hurtbox_body_entered"]
+[connection signal="body_exited" from="hurtbox" to="." method="_on_hurtbox_body_exited"]

@@ -3,6 +3,8 @@
 extends CharacterBody2D
 @onready var navigation_agent: NavigationAgent2D = $NavigationAgent2D
 @onready var hurtbox: Area2D = $hurtbox  # Ensure this references the hurtbox node
+var offset_distance = 25  # Hurtbox Distance from the player
+
 @export var target_to_chase: CharacterBody2D
 var speed = 50
 var last_direction = Vector2.ZERO
@@ -24,45 +26,60 @@ func _ready():
 	
 func _process(delta):
 	update_animation_parameters()
+	control_hurtbox()
+	# Automatically set target_to_chase to a player in the "Player" group
+	var players = get_tree().get_nodes_in_group("Player")
+	if players.size() > 0:
+		target_to_chase = players[0]  # Assumes the first player in the group is the target
+
+
+
+
+func _physics_process(delta):
+	if is_attacking:
+		velocity = Vector2.ZERO
+	elif run:
+		chase_player()
+	elif player_in_range:
+		# Attack the player, set direction to face the player
+		attack_player()
+	
+	else:
+		# Random walking direction logic
+		change_direction(delta)
+		velocity = last_direction * speed
+
+	move_and_slide()
+	
+func control_hurtbox():
+	# Moves the hurtbox to direction enemy is facing
 	if hurtbox and last_direction != Vector2.ZERO:
 		# Snap last_direction to the nearest cardinal direction
 		if abs(last_direction.x) > abs(last_direction.y):
 			last_direction = Vector2(1, 0) if last_direction.x > 0 else Vector2(-1, 0)  # Horizontal movement
 		else:
 			last_direction = Vector2(0, 1) if last_direction.y > 0 else Vector2(0, -1)  # Vertical movement
-
 		hurtbox.facing_direction = last_direction
-		hurtbox.update_position()
-		print("Last Direction (snapped):", last_direction)
-		print("Hurtbox Position:", hurtbox.position)
+		hurtbox.update_position(offset_distance)
 
-
-
-
-func _physics_process(delta):
-	if run:
-		var direction_to_player = (target_to_chase.global_position - global_position).normalized()
-		navigation_agent.target_position = target_to_chase.global_position
-		velocity = global_position.direction_to(navigation_agent.get_next_path_position()) * run_speed
-		last_direction = direction_to_player  # Update the last direction to face the player
-
-	elif player_in_range:
-		# Attack the player, set direction to face the player
-		var direction_to_player = (target_to_chase.global_position - global_position).normalized()
-		last_direction = direction_to_player  # Ensure the attack faces the player
+func chase_player():
+	# Chases the player when enemy sees them
+	var direction_to_player = (target_to_chase.global_position - global_position).normalized()
+	navigation_agent.target_position = target_to_chase.global_position
+	velocity = global_position.direction_to(navigation_agent.get_next_path_position()) * run_speed
+	last_direction = direction_to_player  # Update the last direction to face the player
 	
-	else:
-		# Random walking direction logic
-		direction_change_timer += delta
-		if direction_change_timer >= direction_change_interval:
-			pick_random_direction()
-			direction_change_timer = 0
+func attack_player():
+	# 
+	var direction_to_player = (target_to_chase.global_position - global_position).normalized()
+	last_direction = direction_to_player  # Ensure the attack faces the player
 
-		velocity = last_direction * speed
+func change_direction(delta):
+	direction_change_timer += delta
+	if direction_change_timer >= direction_change_interval:
+		pick_random_direction()
+		direction_change_timer = 0
 
-	move_and_slide()
-
-# Picks a random direction for enemy
 func pick_random_direction():
 	var new_direction = Vector2.ZERO
 	# Ensure that the direction is never a zero vector
@@ -78,33 +95,40 @@ func update_animation_parameters():
 	else:
 		animation_tree["parameters/conditions/is_moving"] = false
 	if is_attacking:
-		animation_tree["parameters/conditions/attack"] = true
+		animation_tree["parameters/conditions/attack"] = is_attacking
 	else:
-		animation_tree["parameters/conditions/attack"] = false
+		animation_tree["parameters/conditions/attack"] = is_attacking
 
+	update_blend_positions()
+
+func update_blend_positions():
 	if last_direction != Vector2.ZERO:
 		animation_tree["parameters/move/blend_position"] = last_direction
 		animation_tree["parameters/attack/blend_position"] = last_direction
 
 func _on_territory_body_entered(body: Node2D) -> void:
+	# Detects the player when player enters territory
 	if body.is_in_group("Player"):
 		player = body
 		run = true
 
 func _on_territory_body_exited(body: Node2D) -> void:
+	# Loses track of player when player leaves territory
 	if body.is_in_group("Player"):
 		player = null
 		run = false
 		pick_random_direction()
 
-func _on_hitbox_body_entered(body: Node2D) -> void:
+func _on_hurtbox_body_entered(body: Node2D) -> void:
+	# Handles activating the attack parameters
 	if body.is_in_group("Player"):
 		player_in_range = true
 		is_attacking = true
 		animation_tree["parameters/conditions/attack"] = true
 		print("Attacking")
 
-func _on_hitbox_body_exited(body: Node2D) -> void:
+func _on_hurtbox_body_exited(body: Node2D) -> void:
+	# Turns off the attack parameters
 	if body.is_in_group("Player"):
 		player_in_range = false
 		is_attacking = false

@@ -9,6 +9,7 @@ var last_direction = Vector2.ZERO
 var enemy_in_range = false
 var is_attacking = false
 var is_tackling = false
+var offset_distance = 15  # Hurtbox Distance from the player
 
 var direction : Vector2 = Vector2.ZERO
 
@@ -64,35 +65,48 @@ func update_animation_parameters():
 
 	# Handle the tackle animation
 	if Input.is_action_just_pressed("tackle") and not is_tackling:
-		is_tackling = true
 		
 		# Restrict tackle to 4 cardinal directions
-		if abs(last_direction.x) > abs(last_direction.y):
-			# Move horizontally (left or right)
-			last_direction = Vector2(last_direction.x, 0).normalized()
-		else:
-			# Move vertically (up or down)
-			last_direction = Vector2(0, last_direction.y).normalized()
+		tackle()
 
-		animation_tree["parameters/conditions/tackle"] = true
 		await get_tree().create_timer(TACKLE_DURATION).timeout  # Wait for tackle duration
+
 		is_tackling = false
 		animation_tree["parameters/conditions/tackle"] = false
 
-	# Update blend position (for direction in animations)
-	if direction != Vector2.ZERO:
-		animation_tree["parameters/idle/blend_position"] = direction
-		animation_tree["parameters/swing/blend_position"] = direction
-		animation_tree["parameters/walk/blend_position"] = direction
-		
-	if direction != Vector2.ZERO and not (is_attacking or is_tackling):
-		last_direction = direction
-		hurtbox.facing_direction = last_direction  # Update hurtbox facing direction
-		hurtbox.update_position()  # Reposition hurtbox based on direction (update_position() located in hurtbox.gd)
+	update_blend_positions()
+	control_hurtbox()
 	
 	# Ensure tackle uses corrected direction (4 cardinal directions only)
 	if is_tackling:
 		animation_tree["parameters/tackle/blend_position"] = last_direction
+		
+func tackle():
+	is_tackling = true
+	if abs(last_direction.x) > abs(last_direction.y):
+			# Move horizontally (left or right)
+		last_direction = Vector2(last_direction.x, 0).normalized()
+	else:
+			# Move vertically (up or down)
+		last_direction = Vector2(0, last_direction.y).normalized()
+	
+	animation_tree["parameters/conditions/tackle"] = true
+
+
+
+
+func update_blend_positions():
+		# Update blend position (for direction in animations)
+	if direction != Vector2.ZERO:
+		animation_tree["parameters/idle/blend_position"] = direction
+		animation_tree["parameters/swing/blend_position"] = direction
+		animation_tree["parameters/walk/blend_position"] = direction
+
+func control_hurtbox():
+	if direction != Vector2.ZERO and not (is_attacking or is_tackling):
+		last_direction = direction
+		hurtbox.facing_direction = last_direction  # Update hurtbox facing direction
+		hurtbox.update_position(offset_distance)  # Reposition hurtbox based on direction (update_position() located in hurtbox.gd)
 
 func _on_hitbox_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Enemy"):
