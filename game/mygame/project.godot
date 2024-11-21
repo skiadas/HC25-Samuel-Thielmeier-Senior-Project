@@ -11,9 +11,8 @@ config_version=5
 [application]
 
 config/name="MyGame"
-run/main_scene="res://Menu.tscn"
+run/main_scene="res://scenes/Menu.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
-config/icon="res://icon.svg"
 
 [display]
 
