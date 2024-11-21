@@ -92,14 +92,15 @@ func swing_sword():
 	is_attacking = true
 	animation_tree["parameters/conditions/swing"] = true
 	#print("Swing started, is_attacking set to true")
-	if enemy_in_range:
-		print("Enemy Hit!")
 	
 	await get_tree().create_timer(0.5).timeout  # Wait for swing duration
 	is_attacking = false
 	#print("Swing ended, is_attacking set to false")
 	animation_tree["parameters/conditions/swing"] = false
 
+func damage_enemy():
+	if enemy_in_range:
+		print("Player Hit the Enemy!")
 
 func update_blend_positions():
 		# Update blend position (for direction in animations)
@@ -117,9 +118,6 @@ func control_hurtbox():
 func _on_hurtbox_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Enemy"):
 		enemy_in_range = true
-
-		
-		
 
 func _on_hurtbox_body_exited(body: Node2D) -> void:
 	if body.is_in_group("Enemy"):

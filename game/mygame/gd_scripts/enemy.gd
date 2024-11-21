@@ -18,13 +18,13 @@ var player_in_range = false
 var is_attacking = false # Detects if the enemy is attacking
 var attack_active = false # To control when damage should be applied when enemy attack animation is active 
 
-
 func _ready():
 	animation_tree.active = true
 	platform_floor_layers = false  # fixes error where enemy gets stuck on top of player head
 	pick_random_direction()  # Picks a random direction for the sprite to start in
 	add_to_group("Enemy")
 	
+
 func _process(delta):
 	update_animation_parameters()
 	control_hurtbox()
@@ -33,18 +33,11 @@ func _process(delta):
 	if players.size() > 0:
 		target_to_chase = players[0]  # Assumes the first player in the group is the target
 
-
-
-
 func _physics_process(delta):
 	if is_attacking:
 		velocity = Vector2.ZERO
 	elif run:
 		chase_player()
-	elif player_in_range:
-		# Attack the player, set direction to face the player
-		attack_enemy()
-	
 	else:
 		# Random walking direction logic
 		change_direction(delta)
@@ -64,16 +57,11 @@ func control_hurtbox():
 		hurtbox.update_position(offset_distance)
 
 func chase_player():
-	# Chases the player when enemy sees them
+	# Chases the player when enemy sees them, attack logic controlled by hurtbox node
 	var direction_to_player = (target_to_chase.global_position - global_position).normalized()
 	navigation_agent.target_position = target_to_chase.global_position
 	velocity = global_position.direction_to(navigation_agent.get_next_path_position()) * run_speed
 	last_direction = direction_to_player  # Update the last direction to face the player
-	
-func attack_enemy():
-	
-	var direction_to_player = (target_to_chase.global_position - global_position).normalized()
-	last_direction = direction_to_player  # Ensure the attack faces the player
 
 func change_direction(delta):
 	direction_change_timer += delta
@@ -99,7 +87,6 @@ func update_animation_parameters():
 		animation_tree["parameters/conditions/attack"] = is_attacking
 	else:
 		animation_tree["parameters/conditions/attack"] = is_attacking
-
 	update_blend_positions()
 
 func update_blend_positions():
@@ -107,13 +94,9 @@ func update_blend_positions():
 		animation_tree["parameters/move/blend_position"] = last_direction
 		animation_tree["parameters/attack/blend_position"] = last_direction
 
-# To enable/disable damage, controlled via the AnimationPlayer using the Call Method Track
-func enable_attack():
-	attack_active = true
-	print("Attack active!")
-func disable_attack():
-	attack_active = false
-	print("Attack inactive.")
+# To enable damage, controlled via the AnimationPlayer using the Call Method Track
+func damage_player():
+	print("Enemy hit the Player")
 
 func _on_territory_body_entered(body: Node2D) -> void:
 	# Detects the player when player enters territory
@@ -129,20 +112,12 @@ func _on_territory_body_exited(body: Node2D) -> void:
 		pick_random_direction()
 
 func _on_hurtbox_body_entered(body: Node2D) -> void:
+	# Handles activating the attack parameters
 	if body.is_in_group("Player"):
 		player_in_range = true
-		# Only process the attack logic if the attack is currently active
-		if attack_active:
-			print("Attack hit Player")
-			# Add logic here to apply damage or effects to the player
-		else:
-			print("Player in range, but attack not active.")
-		# Update the animation and state to reflect the attacking behavior
 		is_attacking = true
 		animation_tree["parameters/conditions/attack"] = true
-		print("Enemy Attacking Player")
-
-	
+		print("Enemy Attacking")
 
 func _on_hurtbox_body_exited(body: Node2D) -> void:
 	# Turns off the attack parameters
