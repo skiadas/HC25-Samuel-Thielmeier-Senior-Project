@@ -1,5 +1,5 @@
 extends GutTest
-var player_scene = preload("res://player.tscn")  # Load the player scene file
+var player_scene = preload("res://scenes/player.tscn")  # Load the player scene file
 
 
 func test_player_moves_right():
