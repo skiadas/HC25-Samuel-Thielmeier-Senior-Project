@@ -23,7 +23,6 @@ func _ready():
 	platform_floor_layers = false  # fixes error where enemy gets stuck on top of player head
 	pick_random_direction()  # Picks a random direction for the sprite to start in
 	add_to_group("Enemy")
-	
 
 func _process(delta):
 	update_animation_parameters()
