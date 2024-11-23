@@ -16,7 +16,6 @@ var run = false
 var player = null # Detecting player and if they are in range
 var player_in_range = false
 var is_attacking = false # Detects if the enemy is attacking
-var attack_active = false # To control when damage should be applied when enemy attack animation is active 
 
 func _ready():
 	animation_tree.active = true
@@ -93,9 +92,10 @@ func update_blend_positions():
 		animation_tree["parameters/move/blend_position"] = last_direction
 		animation_tree["parameters/attack/blend_position"] = last_direction
 
-# To enable damage, controlled via the AnimationPlayer using the Call Method Track
+# To enable damage, called in the AnimationPlayer using the Call Method Track
 func damage_player():
-	print("Enemy hit the Player")
+	if player_in_range and is_attacking:
+		print("Enemy hit the Player")
 
 func _on_territory_body_entered(body: Node2D) -> void:
 	# Detects the player when player enters territory

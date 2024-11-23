@@ -636,6 +636,8 @@ states/move/position = Vector2(391, 102)
 transitions = ["Start", "move", SubResource("AnimationNodeStateMachineTransition_8hpkb"), "move", "attack", SubResource("AnimationNodeStateMachineTransition_aryhn"), "attack", "move", SubResource("AnimationNodeStateMachineTransition_qkjfm")]
 
 [node name="goblin_rider" type="CharacterBody2D"]
+z_index = 1
+y_sort_enabled = true
 script = ExtResource("1_q6b5i")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
