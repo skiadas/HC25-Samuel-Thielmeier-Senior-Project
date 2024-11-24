@@ -1,4 +1,4 @@
-[gd_scene load_steps=78 format=3 uid="uid://in2d5hdwss74"]
+[gd_scene load_steps=77 format=3 uid="uid://in2d5hdwss74"]
 
 [ext_resource type="Script" path="res://gd_scripts/player.gd" id="1_cvg0u"]
 [ext_resource type="Texture2D" uid="uid://35nix2sabmmt" path="res://assets/Warrior_Pixel_Art/Foozle_2DC0009_Lucifer_Warrior_Pixel_Art/Down/Png/WarriorDownIdle.png" id="2_vq0n1"]
@@ -20,7 +20,6 @@
 [ext_resource type="Texture2D" uid="uid://5rmqdp4gcg4t" path="res://assets/Warrior_Pixel_Art/Foozle_2DC0009_Lucifer_Warrior_Pixel_Art/Left/Png/WarriorLeftWalk.png" id="16_wmnn2"]
 [ext_resource type="Texture2D" uid="uid://cr3pgl7b0r2mv" path="res://assets/Warrior_Pixel_Art/Foozle_2DC0009_Lucifer_Warrior_Pixel_Art/Right/Png/WarriorRightWalk.png" id="17_eqts0"]
 [ext_resource type="Texture2D" uid="uid://chg7d0cyi06ih" path="res://assets/Warrior_Pixel_Art/Foozle_2DC0009_Lucifer_Warrior_Pixel_Art/Up/Png/WarriorUpWalk.png" id="18_swqd7"]
-[ext_resource type="Script" path="res://gd_scripts/healthbar.gd" id="21_5ly4r"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nsjwx"]
 radius = 4.0
@@ -1291,7 +1290,6 @@ offset_bottom = 6.0
 scale = Vector2(0.2, 0.2)
 fill_mode = 1
 show_percentage = false
-script = ExtResource("21_5ly4r")
 
 [connection signal="body_entered" from="hurtbox" to="." method="_on_hurtbox_body_entered"]
 [connection signal="body_exited" from="hurtbox" to="." method="_on_hurtbox_body_exited"]

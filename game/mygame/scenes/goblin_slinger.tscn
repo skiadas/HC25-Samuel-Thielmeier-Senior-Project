@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://7mybdearsbx"]
+[gd_scene load_steps=44 format=3 uid="uid://7mybdearsbx"]
 
 [ext_resource type="Script" path="res://gd_scripts/enemy.gd" id="1_bw3hc"]
 [ext_resource type="Texture2D" uid="uid://cmacgucjmkto1" path="res://assets/Goblin_Slinger_Pixel_Art/Foozle_2DC0014_Lucifer_Goblin_Slinger_Pixel_Art/Down/Png/GoblinSlingerDownAttack01.png" id="1_nq6sc"]
@@ -12,7 +12,6 @@
 [ext_resource type="Texture2D" uid="uid://c43a3ms4rem0s" path="res://assets/Goblin_Slinger_Pixel_Art/Foozle_2DC0014_Lucifer_Goblin_Slinger_Pixel_Art/Down/Png/GoblinSlingerDownHurt.png" id="11_g3tgm"]
 [ext_resource type="Texture2D" uid="uid://bppfpgr6tj462" path="res://assets/Goblin_Slinger_Pixel_Art/Foozle_2DC0014_Lucifer_Goblin_Slinger_Pixel_Art/Up/Png/GoblinSlingerUpRun.png" id="12_41ntj"]
 [ext_resource type="Texture2D" uid="uid://c8lurr0fahooe" path="res://assets/Goblin_Slinger_Pixel_Art/Foozle_2DC0014_Lucifer_Goblin_Slinger_Pixel_Art/Down/Png/GoblinSlingerDownDeath.png" id="12_dmknb"]
-[ext_resource type="Script" path="res://gd_scripts/healthbar.gd" id="13_wo7ih"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0hkvc"]
 radius = 4.0
@@ -773,7 +772,6 @@ offset_bottom = 9.0
 scale = Vector2(0.2, 0.2)
 fill_mode = 1
 show_percentage = false
-script = ExtResource("13_wo7ih")
 
 [connection signal="body_entered" from="territory" to="." method="_on_territory_body_entered"]
 [connection signal="body_exited" from="territory" to="." method="_on_territory_body_exited"]
