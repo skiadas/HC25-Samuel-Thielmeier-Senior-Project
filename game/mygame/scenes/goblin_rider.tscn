@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://b0fw5w6jwfnci"]
+[gd_scene load_steps=49 format=3 uid="uid://b0fw5w6jwfnci"]
 
 [ext_resource type="Script" path="res://gd_scripts/enemy.gd" id="1_q6b5i"]
 [ext_resource type="Texture2D" uid="uid://p08ucowi2irp" path="res://assets/Goblin_Rider_Pixel_Art/Foozle_2DC0017_Lucifer_Goblin_Rider_Pixel_Art/Down/Png/GoblinRiderAttack02.png" id="2_8rre3"]
@@ -16,6 +16,7 @@
 [ext_resource type="Script" path="res://gd_scripts/hurtbox.gd" id="10_bryva"]
 [ext_resource type="Texture2D" uid="uid://d4gsbvvnfa8ep" path="res://assets/Goblin_Rider_Pixel_Art/Foozle_2DC0017_Lucifer_Goblin_Rider_Pixel_Art/Down/Png/GoblinRiderHurt.png" id="12_tyihu"]
 [ext_resource type="Texture2D" uid="uid://mktgswxwhgs3" path="res://assets/Goblin_Rider_Pixel_Art/Foozle_2DC0017_Lucifer_Goblin_Rider_Pixel_Art/Down/Png/GoblinRiderDeath.png" id="13_1egog"]
+[ext_resource type="Script" path="res://gd_scripts/healthbar.gd" id="17_3f4gy"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7ewwo"]
 radius = 7.0
@@ -759,6 +760,7 @@ offset_bottom = -1.0
 scale = Vector2(0.2, 0.2)
 fill_mode = 1
 show_percentage = false
+script = ExtResource("17_3f4gy")
 
 [connection signal="body_entered" from="territory" to="." method="_on_territory_body_entered"]
 [connection signal="body_exited" from="territory" to="." method="_on_territory_body_exited"]

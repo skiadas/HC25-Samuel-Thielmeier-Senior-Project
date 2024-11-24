@@ -3,6 +3,7 @@
 extends CharacterBody2D
 @onready var navigation_agent: NavigationAgent2D = $NavigationAgent2D
 @onready var hurtbox: Area2D = $hurtbox  # Ensure this references the hurtbox node
+@onready var healthbar: ProgressBar = $healthbar
 var offset_distance = 20  # Hurtbox Distance from the player
 @export var target_to_chase: CharacterBody2D
 var speed = 50
