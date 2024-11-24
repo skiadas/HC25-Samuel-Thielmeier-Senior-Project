@@ -3,7 +3,8 @@
 extends CharacterBody2D
 @onready var navigation_agent: NavigationAgent2D = $NavigationAgent2D
 @onready var hurtbox: Area2D = $hurtbox  # Ensure this references the hurtbox node
-var offset_distance = 25  # Hurtbox Distance from the player
+@onready var healthbar: ProgressBar = $healthbar
+var offset_distance = 20  # Hurtbox Distance from the player
 @export var target_to_chase: CharacterBody2D
 var speed = 50
 var last_direction = Vector2.ZERO
@@ -16,6 +17,8 @@ var run = false
 var player = null # Detecting player and if they are in range
 var player_in_range = false
 var is_attacking = false # Detects if the enemy is attacking
+var health = 100
+var is_dead = false
 
 func _ready():
 	animation_tree.active = true
@@ -25,6 +28,8 @@ func _ready():
 
 func _process(delta):
 	update_animation_parameters()
+	update_health()
+	die()
 	control_hurtbox()
 	# Automatically set target_to_chase to a player in the "Player" group
 	var players = get_tree().get_nodes_in_group("Player")
@@ -32,7 +37,7 @@ func _process(delta):
 		target_to_chase = players[0]  # Assumes the first player in the group is the target
 
 func _physics_process(delta):
-	if is_attacking:
+	if is_attacking or is_dead:
 		velocity = Vector2.ZERO
 	elif run:
 		chase_player()
@@ -77,6 +82,10 @@ func pick_random_direction():
 	
 func update_animation_parameters():
 	# Updates the conditions in the AnimationTree -> Parameters -> Conditions
+	if is_dead:
+		animation_tree["parameters/conditions/die"] = true
+	else:
+		animation_tree["parameters/conditions/die"] = false
 	if not velocity == Vector2.ZERO and not is_attacking:
 		animation_tree["parameters/conditions/is_moving"] = true
 	else:
@@ -95,7 +104,25 @@ func update_blend_positions():
 # To enable damage, called in the AnimationPlayer using the Call Method Track
 func damage_player():
 	if player_in_range and is_attacking:
-		print("Enemy hit the Player")
+		if player.has_method("take_damage"):
+			player.take_damage()
+			
+func enemy_take_damage():
+	if not is_dead:
+		health -= 20
+
+func update_health():
+	var healthbar = $healthbar
+	healthbar.value = health
+	if health >= 100:
+		healthbar.visible = false
+	else:
+		healthbar.visible = true
+
+func die():
+	if health <= 0:
+		velocity = Vector2.ZERO
+		is_dead = true
 
 func _on_territory_body_entered(body: Node2D) -> void:
 	# Detects the player when player enters territory

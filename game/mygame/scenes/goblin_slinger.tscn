@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://7mybdearsbx"]
+[gd_scene load_steps=45 format=3 uid="uid://7mybdearsbx"]
 
 [ext_resource type="Script" path="res://gd_scripts/enemy.gd" id="1_bw3hc"]
 [ext_resource type="Texture2D" uid="uid://cmacgucjmkto1" path="res://assets/Goblin_Slinger_Pixel_Art/Foozle_2DC0014_Lucifer_Goblin_Slinger_Pixel_Art/Down/Png/GoblinSlingerDownAttack01.png" id="1_nq6sc"]
@@ -9,7 +9,10 @@
 [ext_resource type="Texture2D" uid="uid://dp2ilvo374ql3" path="res://assets/Goblin_Slinger_Pixel_Art/Foozle_2DC0014_Lucifer_Goblin_Slinger_Pixel_Art/Left/Png/GoblinSlingerLeftRun.png" id="10_cxs5k"]
 [ext_resource type="Script" path="res://gd_scripts/hurtbox.gd" id="10_sdbna"]
 [ext_resource type="Texture2D" uid="uid://bjwkvvn6jxtif" path="res://assets/Goblin_Slinger_Pixel_Art/Foozle_2DC0014_Lucifer_Goblin_Slinger_Pixel_Art/Right/Png/GoblinSlingerRightRun.png" id="11_62bk1"]
+[ext_resource type="Texture2D" uid="uid://c43a3ms4rem0s" path="res://assets/Goblin_Slinger_Pixel_Art/Foozle_2DC0014_Lucifer_Goblin_Slinger_Pixel_Art/Down/Png/GoblinSlingerDownHurt.png" id="11_g3tgm"]
 [ext_resource type="Texture2D" uid="uid://bppfpgr6tj462" path="res://assets/Goblin_Slinger_Pixel_Art/Foozle_2DC0014_Lucifer_Goblin_Slinger_Pixel_Art/Up/Png/GoblinSlingerUpRun.png" id="12_41ntj"]
+[ext_resource type="Texture2D" uid="uid://c8lurr0fahooe" path="res://assets/Goblin_Slinger_Pixel_Art/Foozle_2DC0014_Lucifer_Goblin_Slinger_Pixel_Art/Down/Png/GoblinSlingerDownDeath.png" id="12_dmknb"]
+[ext_resource type="Script" path="res://gd_scripts/healthbar.gd" id="13_wo7ih"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0hkvc"]
 radius = 4.0
@@ -356,6 +359,58 @@ tracks/4/keys = {
 }]
 }
 
+[sub_resource type="Animation" id="Animation_87iyj"]
+resource_name = "die"
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [ExtResource("11_g3tgm"), ExtResource("12_dmknb")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [4, 9]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:vframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [1, 1]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [2, 3, 0, 1, 2, 3, 4, 5, 6, 7]
+}
+
 [sub_resource type="Animation" id="Animation_k6x8r"]
 resource_name = "walk_down"
 loop_mode = 1
@@ -575,6 +630,7 @@ _data = {
 "attack_left": SubResource("Animation_lmk52"),
 "attack_right": SubResource("Animation_u6hxg"),
 "attack_up": SubResource("Animation_j3nqp"),
+"die": SubResource("Animation_87iyj"),
 "move_down": SubResource("Animation_k6x8r"),
 "move_left": SubResource("Animation_x2cj7"),
 "move_right": SubResource("Animation_ux4r6"),
@@ -605,6 +661,9 @@ blend_point_3/pos = Vector2(0, -1.1)
 min_space = Vector2(-1, -1.1)
 max_space = Vector2(1, 1.1)
 blend_mode = 1
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_lyhmj"]
+animation = &"die"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_50g4e"]
 animation = &"move_left"
@@ -640,12 +699,22 @@ advance_condition = &"attack"
 advance_mode = 2
 advance_condition = &"is_moving"
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_hfhvj"]
+advance_mode = 2
+advance_condition = &"die"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_u8hdj"]
+advance_mode = 2
+advance_condition = &"die"
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_p0rke"]
 states/attack/node = SubResource("AnimationNodeBlendSpace2D_w44u6")
 states/attack/position = Vector2(575, 90.9568)
+states/die/node = SubResource("AnimationNodeAnimation_lyhmj")
+states/die/position = Vector2(470, -12.0432)
 states/move/node = SubResource("AnimationNodeBlendSpace2D_5xose")
 states/move/position = Vector2(360, 90.9568)
-transitions = ["Start", "move", SubResource("AnimationNodeStateMachineTransition_bdfri"), "move", "attack", SubResource("AnimationNodeStateMachineTransition_cn0fs"), "attack", "move", SubResource("AnimationNodeStateMachineTransition_v5k8b")]
+transitions = ["Start", "move", SubResource("AnimationNodeStateMachineTransition_bdfri"), "move", "attack", SubResource("AnimationNodeStateMachineTransition_cn0fs"), "attack", "move", SubResource("AnimationNodeStateMachineTransition_v5k8b"), "move", "die", SubResource("AnimationNodeStateMachineTransition_hfhvj"), "attack", "die", SubResource("AnimationNodeStateMachineTransition_u8hdj")]
 graph_offset = Vector2(0, -65.0432)
 
 [node name="goblin_slinger" type="CharacterBody2D"]
@@ -690,9 +759,21 @@ libraries = {
 tree_root = SubResource("AnimationNodeStateMachine_p0rke")
 anim_player = NodePath("../AnimationPlayer")
 parameters/conditions/attack = false
+parameters/conditions/die = false
 parameters/conditions/is_moving = false
 parameters/attack/blend_position = Vector2(0, 0)
 parameters/move/blend_position = Vector2(-0.00158983, -0.00769234)
+
+[node name="healthbar" type="ProgressBar" parent="."]
+modulate = Color(0.128333, 0.7, 0, 1)
+offset_left = -13.0
+offset_top = -18.0
+offset_right = 117.0
+offset_bottom = 9.0
+scale = Vector2(0.2, 0.2)
+fill_mode = 1
+show_percentage = false
+script = ExtResource("13_wo7ih")
 
 [connection signal="body_entered" from="territory" to="." method="_on_territory_body_entered"]
 [connection signal="body_exited" from="territory" to="." method="_on_territory_body_exited"]
