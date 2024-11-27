@@ -19,8 +19,6 @@ var enemy = null
 @onready var animation_tree : AnimationTree = $AnimationTree
 # Reference to the hurtbox Area2d 
 @onready var hurtbox : Area2D = $hurtbox
-# Reference to the healthbar ProgressBar
-@onready var healthbar : ProgressBar = $healthbar
 
 func _ready():
 	animation_tree.active = true
