@@ -26,7 +26,7 @@ radius = 4.0
 height = 24.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3e0ex"]
-size = Vector2(17.5, 17.5)
+size = Vector2(19.75, 19.75)
 
 [sub_resource type="Animation" id="Animation_0mwei"]
 length = 0.001
@@ -1256,10 +1256,10 @@ script = ExtResource("3_jvf2r")
 shape = SubResource("RectangleShape2D_3e0ex")
 
 [node name="ColorRect" type="ColorRect" parent="hurtbox"]
-offset_left = -9.0
-offset_top = -9.0
-offset_right = 9.0
-offset_bottom = 9.0
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
 color = Color(1, 0.54902, 1, 0.290196)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -1282,7 +1282,7 @@ parameters/tackle/blend_position = Vector2(0, 0)
 parameters/walk/blend_position = Vector2(0, 0)
 
 [node name="healthbar" type="ProgressBar" parent="."]
-modulate = Color(0.411765, 0.623529, 0.0862745, 1)
+modulate = Color(0.14902, 1, 0.14902, 1)
 offset_left = -10.0
 offset_top = -21.0
 offset_right = 90.0

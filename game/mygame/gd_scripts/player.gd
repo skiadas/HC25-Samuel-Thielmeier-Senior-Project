@@ -14,6 +14,7 @@ var offset_distance = 15  # Hurtbox Distance from the player
 var health = 100
 var is_dead = false
 var enemy = null
+var enemies_killed = 0
 
 # Reference to the AnimationTree node
 @onready var animation_tree : AnimationTree = $AnimationTree
@@ -114,6 +115,12 @@ func take_damage():
 	if not is_dead:
 		health -= 10
 
+func heal():
+	if not is_dead:
+		health += 25
+		if health > 100:
+			health = 100 
+
 func update_health():
 	var healthbar = $healthbar
 	healthbar.value = health
@@ -126,12 +133,21 @@ func die():
 	if health <= 0 and not is_dead:
 		velocity = Vector2.ZERO
 		is_dead = true
+		await get_tree().create_timer(2.0).timeout
+		get_tree().change_scene_to_file("res://scenes/World.tscn")
+		
 
 func damage_enemy():
 	if enemy_in_range and is_attacking:
-		print("hit enemy")
-		if enemy.has_method("enemy_take_damage"):
-			enemy.enemy_take_damage()
+		for body in hurtbox.get_overlapping_bodies():
+			if body.is_in_group("Enemy") and body.has_method("enemy_take_damage"):
+				body.enemy_take_damage()
+
+func on_enemy_killed():
+	enemies_killed += 1
+	print(enemies_killed, " enemies killed")
+	if enemies_killed % 2 == 0:
+		heal()
 
 func update_blend_positions():
 		# Update blend position (for direction in animations)

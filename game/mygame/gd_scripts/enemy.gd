@@ -17,7 +17,9 @@ var player = null # Detecting player and if they are in range
 var player_in_range = false
 var is_attacking = false # Detects if the enemy is attacking
 var health = 100
+var is_dying = false # To insure the die() function only gets called once
 var is_dead = false
+
 
 func _ready():
 	animation_tree.active = true
@@ -108,7 +110,7 @@ func damage_player():
 			
 func enemy_take_damage():
 	if not is_dead:
-		health -= 20
+		health -= 25
 
 func update_health():
 	var healthbar = $healthbar
@@ -119,9 +121,15 @@ func update_health():
 		healthbar.visible = true
 
 func die():
-	if health <= 0:
+	if health <= 0 and not is_dying:
+		is_dying = true
 		velocity = Vector2.ZERO
 		is_dead = true
+		if player and player.has_method("on_enemy_killed"):
+			player.on_enemy_killed()
+		await get_tree().create_timer(1.0).timeout
+		queue_free()
+	
 
 func _on_territory_body_entered(body: Node2D) -> void:
 	# Detects the player when player enters territory

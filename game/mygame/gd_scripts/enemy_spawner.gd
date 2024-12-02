@@ -1,5 +1,9 @@
 extends Node2D
-@export var enemy_scene = preload("res://scenes/goblin_rider.tscn")
+@export var enemy_scenes : Array = [
+	preload("res://scenes/goblin_rider.tscn"),
+	preload("res://scenes/goblin_slinger.tscn"),
+	preload("res://scenes/skeleton_grunt.tscn")
+	]
 @export var spawn_interval = 3.0
 var spawn_timer = Timer
 # Called when the node enters the scene tree for the first time.
@@ -15,6 +19,10 @@ func _on_spawner_timout():
 	spawn_enemy()
 
 func spawn_enemy():
-	var enemy = enemy_scene.instantiate()
-	enemy.global_position = global_position
-	get_parent().add_child(enemy)
+	if enemy_scenes.size() > 0:
+		var random_enemy = enemy_scenes[randi() % enemy_scenes.size()]
+		var enemy = random_enemy.instantiate()
+		enemy.global_position = global_position
+		get_parent().add_child(enemy)
+	else:
+		print("No enemy scenes")
