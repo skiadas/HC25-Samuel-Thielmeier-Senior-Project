@@ -1,4 +1,4 @@
-[gd_scene load_steps=77 format=3 uid="uid://in2d5hdwss74"]
+[gd_scene load_steps=78 format=3 uid="uid://in2d5hdwss74"]
 
 [ext_resource type="Script" path="res://gd_scripts/player.gd" id="1_cvg0u"]
 [ext_resource type="Texture2D" uid="uid://35nix2sabmmt" path="res://assets/Warrior_Pixel_Art/Foozle_2DC0009_Lucifer_Warrior_Pixel_Art/Down/Png/WarriorDownIdle.png" id="2_vq0n1"]
@@ -23,7 +23,7 @@
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nsjwx"]
 radius = 4.0
-height = 24.0
+height = 20.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3e0ex"]
 size = Vector2(19.75, 19.75)
@@ -1163,7 +1163,7 @@ advance_mode = 2
 advance_condition = &"swing"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_507i0"]
-switch_mode = 2
+switch_mode = 1
 advance_mode = 2
 advance_condition = &"is_walking"
 
@@ -1213,7 +1213,12 @@ advance_condition = &"die"
 advance_mode = 2
 advance_condition = &"die"
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_wtyuo"]
+switch_mode = 2
+advance_mode = 2
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_c1r4p"]
+states/End/position = Vector2(505, 19)
 states/Start/position = Vector2(83, 100)
 states/die/node = SubResource("AnimationNodeAnimation_tp84b")
 states/die/position = Vector2(561, 100)
@@ -1225,8 +1230,8 @@ states/tackle/node = SubResource("AnimationNodeBlendSpace2D_q4d3u")
 states/tackle/position = Vector2(505, -93.035)
 states/walk/node = SubResource("AnimationNodeBlendSpace2D_gl7q8")
 states/walk/position = Vector2(746, 100)
-transitions = ["idle", "swing", SubResource("AnimationNodeStateMachineTransition_ko4e6"), "swing", "walk", SubResource("AnimationNodeStateMachineTransition_507i0"), "walk", "idle", SubResource("AnimationNodeStateMachineTransition_u4scb"), "idle", "walk", SubResource("AnimationNodeStateMachineTransition_rk6uy"), "walk", "swing", SubResource("AnimationNodeStateMachineTransition_7djka"), "swing", "idle", SubResource("AnimationNodeStateMachineTransition_o75l5"), "idle", "tackle", SubResource("AnimationNodeStateMachineTransition_ewrwf"), "tackle", "idle", SubResource("AnimationNodeStateMachineTransition_03gwy"), "walk", "tackle", SubResource("AnimationNodeStateMachineTransition_gimns"), "tackle", "walk", SubResource("AnimationNodeStateMachineTransition_aa6bp"), "Start", "idle", SubResource("AnimationNodeStateMachineTransition_j2yvy"), "idle", "die", SubResource("AnimationNodeStateMachineTransition_wx2hd"), "walk", "die", SubResource("AnimationNodeStateMachineTransition_aykjp")]
-graph_offset = Vector2(0, -120.035)
+transitions = ["idle", "swing", SubResource("AnimationNodeStateMachineTransition_ko4e6"), "swing", "walk", SubResource("AnimationNodeStateMachineTransition_507i0"), "walk", "idle", SubResource("AnimationNodeStateMachineTransition_u4scb"), "idle", "walk", SubResource("AnimationNodeStateMachineTransition_rk6uy"), "walk", "swing", SubResource("AnimationNodeStateMachineTransition_7djka"), "swing", "idle", SubResource("AnimationNodeStateMachineTransition_o75l5"), "idle", "tackle", SubResource("AnimationNodeStateMachineTransition_ewrwf"), "tackle", "idle", SubResource("AnimationNodeStateMachineTransition_03gwy"), "walk", "tackle", SubResource("AnimationNodeStateMachineTransition_gimns"), "tackle", "walk", SubResource("AnimationNodeStateMachineTransition_aa6bp"), "Start", "idle", SubResource("AnimationNodeStateMachineTransition_j2yvy"), "idle", "die", SubResource("AnimationNodeStateMachineTransition_wx2hd"), "walk", "die", SubResource("AnimationNodeStateMachineTransition_aykjp"), "die", "End", SubResource("AnimationNodeStateMachineTransition_wtyuo")]
+graph_offset = Vector2(-137.026, -202.357)
 
 [node name="player" type="CharacterBody2D"]
 z_index = 1
@@ -1244,9 +1249,7 @@ texture = ExtResource("2_vq0n1")
 hframes = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 y_sort_enabled = true
-position = Vector2(0, -3)
 shape = SubResource("CapsuleShape2D_nsjwx")
 
 [node name="hurtbox" type="Area2D" parent="."]
