@@ -13,7 +13,7 @@ jobs:
       - name: Set up Godot
         uses: paulloz/godot-action@v1.2.2
         with:
-          version: "4.3"  # Specify Godot version
+          version: "stable"  # Specify Godot version
 
       # Step 3: Run GUT Tests
       - name: Run GUT Tests
