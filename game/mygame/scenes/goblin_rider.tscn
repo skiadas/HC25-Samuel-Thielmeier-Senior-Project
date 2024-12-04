@@ -730,6 +730,7 @@ script = ExtResource("10_bryva")
 shape = SubResource("RectangleShape2D_wlide")
 
 [node name="ColorRect" type="ColorRect" parent="hurtbox"]
+visible = false
 offset_left = -10.0
 offset_top = -10.0
 offset_right = 10.0

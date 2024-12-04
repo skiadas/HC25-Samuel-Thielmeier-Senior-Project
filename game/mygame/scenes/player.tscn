@@ -1103,12 +1103,9 @@ blend_point_0/pos = Vector2(-1, 0)
 blend_point_1/node = SubResource("AnimationNodeAnimation_6ob4h")
 blend_point_1/pos = Vector2(1, 0)
 blend_point_2/node = SubResource("AnimationNodeAnimation_gubdq")
-blend_point_2/pos = Vector2(0, -1.1)
+blend_point_2/pos = Vector2(0, -1)
 blend_point_3/node = SubResource("AnimationNodeAnimation_liktn")
-blend_point_3/pos = Vector2(0, 1.1)
-min_space = Vector2(-1, -1.1)
-max_space = Vector2(1, 1.1)
-blend_mode = 1
+blend_point_3/pos = Vector2(0, 1)
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_fwquh"]
 animation = &"tackle_left"
@@ -1202,9 +1199,6 @@ switch_mode = 2
 advance_mode = 2
 advance_condition = &"is_walking"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_j2yvy"]
-advance_mode = 2
-
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_wx2hd"]
 advance_mode = 2
 advance_condition = &"die"
@@ -1212,6 +1206,9 @@ advance_condition = &"die"
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_aykjp"]
 advance_mode = 2
 advance_condition = &"die"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_j2yvy"]
+advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_c1r4p"]
 states/Start/position = Vector2(83, 100)
@@ -1225,7 +1222,7 @@ states/tackle/node = SubResource("AnimationNodeBlendSpace2D_q4d3u")
 states/tackle/position = Vector2(505, -93.035)
 states/walk/node = SubResource("AnimationNodeBlendSpace2D_gl7q8")
 states/walk/position = Vector2(746, 100)
-transitions = ["idle", "swing", SubResource("AnimationNodeStateMachineTransition_ko4e6"), "swing", "walk", SubResource("AnimationNodeStateMachineTransition_507i0"), "walk", "idle", SubResource("AnimationNodeStateMachineTransition_u4scb"), "idle", "walk", SubResource("AnimationNodeStateMachineTransition_rk6uy"), "walk", "swing", SubResource("AnimationNodeStateMachineTransition_7djka"), "swing", "idle", SubResource("AnimationNodeStateMachineTransition_o75l5"), "idle", "tackle", SubResource("AnimationNodeStateMachineTransition_ewrwf"), "tackle", "idle", SubResource("AnimationNodeStateMachineTransition_03gwy"), "walk", "tackle", SubResource("AnimationNodeStateMachineTransition_gimns"), "tackle", "walk", SubResource("AnimationNodeStateMachineTransition_aa6bp"), "Start", "idle", SubResource("AnimationNodeStateMachineTransition_j2yvy"), "idle", "die", SubResource("AnimationNodeStateMachineTransition_wx2hd"), "walk", "die", SubResource("AnimationNodeStateMachineTransition_aykjp")]
+transitions = ["idle", "swing", SubResource("AnimationNodeStateMachineTransition_ko4e6"), "swing", "walk", SubResource("AnimationNodeStateMachineTransition_507i0"), "walk", "idle", SubResource("AnimationNodeStateMachineTransition_u4scb"), "idle", "walk", SubResource("AnimationNodeStateMachineTransition_rk6uy"), "walk", "swing", SubResource("AnimationNodeStateMachineTransition_7djka"), "swing", "idle", SubResource("AnimationNodeStateMachineTransition_o75l5"), "idle", "tackle", SubResource("AnimationNodeStateMachineTransition_ewrwf"), "tackle", "idle", SubResource("AnimationNodeStateMachineTransition_03gwy"), "walk", "tackle", SubResource("AnimationNodeStateMachineTransition_gimns"), "tackle", "walk", SubResource("AnimationNodeStateMachineTransition_aa6bp"), "idle", "die", SubResource("AnimationNodeStateMachineTransition_wx2hd"), "walk", "die", SubResource("AnimationNodeStateMachineTransition_aykjp"), "Start", "idle", SubResource("AnimationNodeStateMachineTransition_j2yvy")]
 graph_offset = Vector2(0, -120.035)
 
 [node name="player" type="CharacterBody2D"]

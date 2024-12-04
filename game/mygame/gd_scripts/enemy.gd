@@ -27,6 +27,7 @@ func _ready():
 	pick_random_direction()  # Picks a random direction for the sprite to start in
 	add_to_group("Enemy")
 
+@warning_ignore("unused_parameter")
 func _process(delta):
 	update_animation_parameters()
 	update_health()

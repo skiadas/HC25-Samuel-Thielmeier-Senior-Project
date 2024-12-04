@@ -7,6 +7,7 @@ var tackle_speed = 200.0  # Speed boost during tackle
 var tackle_duration = 0.5  # Tackle duration in seconds
 var direction : Vector2 = Vector2.ZERO
 var last_direction = Vector2.ZERO
+var enemies_in_range : Array = []
 var enemy_in_range = false
 var is_attacking = false
 var is_tackling = false
@@ -104,8 +105,6 @@ func tackle():
 func swing_sword():
 	is_attacking = true
 	animation_tree["parameters/conditions/swing"] = true
-	#print("Swing started, is_attacking set to true")
-	
 	await get_tree().create_timer(0.5).timeout  # Wait for swing duration
 	is_attacking = false
 	#print("Swing ended, is_attacking set to false")
@@ -134,7 +133,7 @@ func die():
 		velocity = Vector2.ZERO
 		is_dead = true
 		await get_tree().create_timer(2.0).timeout
-		get_tree().change_scene_to_file("res://scenes/World.tscn")
+		get_tree().change_scene_to_file("res://scenes/Menu.tscn")
 		
 
 func damage_enemy():
@@ -164,10 +163,11 @@ func control_hurtbox():
 
 func _on_hurtbox_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Enemy"):
-		enemy = body
+		enemies_in_range.append(body)
 		enemy_in_range = true
 
 func _on_hurtbox_body_exited(body: Node2D) -> void:
 	if body.is_in_group("Enemy"):
-		enemy = null
-		enemy_in_range = false
+		enemies_in_range.erase(body)
+		if enemies_in_range.is_empty():
+			enemy_in_range = false

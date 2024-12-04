@@ -731,21 +731,12 @@ script = ExtResource("3_8ksvh")
 shape = SubResource("RectangleShape2D_5ak3g")
 
 [node name="ColorRect" type="ColorRect" parent="hurtbox"]
+visible = false
 offset_left = -8.0
 offset_top = -8.0
 offset_right = 8.0
 offset_bottom = 8.0
 color = Color(0.0756, 0.17724, 0.63, 0.27451)
-
-[node name="healthbar" type="ProgressBar" parent="."]
-modulate = Color(0.15, 1, 0.15, 1)
-offset_left = -10.0
-offset_top = -21.0
-offset_right = 90.0
-offset_bottom = 6.0
-scale = Vector2(0.2, 0.2)
-fill_mode = 1
-show_percentage = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -760,6 +751,16 @@ parameters/conditions/die = false
 parameters/conditions/is_moving = false
 parameters/attack/blend_position = Vector2(0, 0)
 parameters/move/blend_position = Vector2(-0.00158983, 0.00581396)
+
+[node name="healthbar" type="ProgressBar" parent="."]
+modulate = Color(0.15, 1, 0.15, 1)
+offset_left = -10.0
+offset_top = -21.0
+offset_right = 90.0
+offset_bottom = 6.0
+scale = Vector2(0.2, 0.2)
+fill_mode = 1
+show_percentage = false
 
 [connection signal="body_entered" from="territory" to="." method="_on_territory_body_entered"]
 [connection signal="body_exited" from="territory" to="." method="_on_territory_body_exited"]
