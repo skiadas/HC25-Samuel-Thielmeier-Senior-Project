@@ -7,12 +7,13 @@ var tackle_speed = 200.0  # Speed boost during tackle
 var tackle_duration = 0.5  # Tackle duration in seconds
 var direction : Vector2 = Vector2.ZERO
 var last_direction = Vector2.ZERO
-var enemies_in_range : Array = []  # List to track all enemies in the hurtbox
 var enemy_in_range = false
 var is_attacking = false
 var is_tackling = false
+var offset_distance = 15  # Hurtbox Distance from the player
 var health = 100
 var is_dead = false
+var enemy = null
 var enemies_killed = 0
 
 # Reference to the AnimationTree node
@@ -63,10 +64,8 @@ func update_animation_parameters():
 	# Handle the tackle animation
 	if Input.is_action_just_pressed("tackle") and not is_tackling:
 		tackle()
-	
-	if not is_attacking and not is_tackling:
 	# Gets acurate blend positions
-		update_blend_positions()
+	update_blend_positions()
 	# Moves hurtbox to infront of enemy
 	control_hurtbox()
 	
@@ -81,16 +80,6 @@ func idle_or_moveing():
 	else:
 		animation_tree["parameters/conditions/die"] = false
 
-	if is_attacking:
-		# Prevent idle/walking animations during attack
-		animation_tree["parameters/conditions/idle"] = false
-		animation_tree["parameters/conditions/is_walking"] = false
-		return
-	elif is_tackling:
-		# Prevent idle/walking animations during tackle
-		animation_tree["parameters/conditions/idle"] = false
-		animation_tree["parameters/conditions/is_walking"] = false
-		return
 	if velocity == Vector2.ZERO and not is_attacking and not is_tackling:
 		animation_tree["parameters/conditions/idle"] = true
 		animation_tree["parameters/conditions/is_walking"] = false
@@ -127,11 +116,8 @@ func take_damage():
 		health -= 10
 
 func heal():
-	var heal_multiplier = 1 + (enemies_killed * 0.01)
-	var heal_amount = 25 * heal_multiplier
-	print("Heal-Multipler = ", heal_multiplier)
 	if not is_dead:
-		health += heal_amount
+		health += 25
 		if health > 100:
 			health = 100 
 
@@ -148,7 +134,7 @@ func die():
 		velocity = Vector2.ZERO
 		is_dead = true
 		await get_tree().create_timer(2.0).timeout
-		get_tree().change_scene_to_file("res://scenes/Menu.tscn")
+		get_tree().change_scene_to_file("res://scenes/World.tscn")
 		
 
 func damage_enemy():
@@ -174,15 +160,14 @@ func control_hurtbox():
 	if direction != Vector2.ZERO and not (is_attacking or is_tackling):
 		last_direction = direction
 		hurtbox.facing_direction = last_direction  # Update hurtbox facing direction
-		hurtbox.update_position()  # Reposition hurtbox based on direction (update_position() located in hurtbox.gd)
+		hurtbox.update_position(offset_distance)  # Reposition hurtbox based on direction (update_position() located in hurtbox.gd)
 
 func _on_hurtbox_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Enemy"):
-		enemies_in_range.append(body)
+		enemy = body
 		enemy_in_range = true
 
 func _on_hurtbox_body_exited(body: Node2D) -> void:
 	if body.is_in_group("Enemy"):
-		enemies_in_range.erase(body)
-		if enemies_in_range.is_empty():
-			enemy_in_range = false
+		enemy = null
+		enemy_in_range = false

@@ -3,6 +3,7 @@
 extends CharacterBody2D
 @onready var navigation_agent: NavigationAgent2D = $NavigationAgent2D
 @onready var hurtbox: Area2D = $hurtbox  # Ensure this references the hurtbox node
+var offset_distance = 20  # Hurtbox Distance from the player
 @export var target_to_chase: CharacterBody2D
 var speed = 50
 var last_direction = Vector2.ZERO
@@ -57,7 +58,7 @@ func control_hurtbox():
 		else:
 			last_direction = Vector2(0, 1) if last_direction.y > 0 else Vector2(0, -1)  # Vertical movement
 		hurtbox.facing_direction = last_direction
-		hurtbox.update_position()
+		hurtbox.update_position(offset_distance)
 
 func chase_player():
 	# Chases the player when enemy sees them, attack logic controlled by hurtbox node

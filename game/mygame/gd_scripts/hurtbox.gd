@@ -2,10 +2,10 @@
 # right clicking on the hurtbox area2d node in whichever scene, then attatch script, and type "hurtbox.gd"
 
 extends Area2D
-var offset_distance = 15
+
 var facing_direction = Vector2.RIGHT  # Default facing direction
 
-func update_position():
+func update_position(offset_distance):
 	# Move the hurtbox based on the facing direction
 	match facing_direction:
 		Vector2.RIGHT:
