@@ -11,15 +11,14 @@ jobs:
 
       # Step 2: Set up Godot
       - name: Set up Godot
-        uses: godotengine/godot-action@v1
+        uses: paulloz/godot-action@v1.2.2
         with:
-          version: "4.3"  # Specify your Godot version
+          version: "4.3"  # Specify Godot version
 
       # Step 3: Run GUT Tests
       - name: Run GUT Tests
         uses: yeslayla/run-gut-tests-action@v1
         with:
-          godot_executable: "/path/to/godot"  # Optional if using the default
           project_path: "game/mygame"
           test_path: "res://test/unit"
           minimum_pass: "1.0"  # Ensure all tests pass
