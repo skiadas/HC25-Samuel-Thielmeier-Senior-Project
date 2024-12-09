@@ -1231,10 +1231,6 @@ y_sort_enabled = true
 script = ExtResource("1_cvg0u")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-limit_left = 0
-limit_top = 0
-limit_right = 1150
-limit_bottom = 650
 
 [node name="Body" type="Sprite2D" parent="."]
 texture = ExtResource("2_vq0n1")
