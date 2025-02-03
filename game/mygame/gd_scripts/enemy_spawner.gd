@@ -4,7 +4,7 @@ extends Node2D
 	preload("res://scenes/goblin_slinger.tscn"),
 	preload("res://scenes/skeleton_grunt.tscn")
 	]
-@export var spawn_interval = 3.0
+@export var spawn_interval = 5.0
 var spawn_timer = Timer
 # Called when the node enters the scene tree for the first time.
 func _ready():
