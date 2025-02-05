@@ -21,3 +21,6 @@ The controls are designed to provide a smooth and intuitive gameplay experience:
 
 ---
 Keep checking back for updates, as the dungeon depths await your exploration in *Crypts & Chaos*!
+
+Testing making changes and how a new commit will combine with incoming commits.
+
