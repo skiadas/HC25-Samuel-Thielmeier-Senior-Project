@@ -1,13 +1,12 @@
-[gd_scene load_steps=22 format=4 uid="uid://h87sjdy3c6qt"]
+[gd_scene load_steps=21 format=4 uid="uid://h87sjdy3c6qt"]
 
 [ext_resource type="Texture2D" uid="uid://bwcovycs475gd" path="res://assets/Pixel Art Top Down - Basic/Texture/TX Tileset Grass.png" id="1_84b3e"]
 [ext_resource type="Texture2D" uid="uid://b483mxhj3rbpm" path="res://assets/Pixel Art Top Down - Basic/Texture/TX Struct.png" id="2_huyxd"]
 [ext_resource type="Texture2D" uid="uid://dcgxojvssritn" path="res://assets/Pixel Art Top Down - Basic/Texture/TX Props.png" id="3_ke5c1"]
 [ext_resource type="Texture2D" uid="uid://cg5iwxyfc2kdj" path="res://assets/Pixel Art Top Down - Basic/TILESET VILLAGE TOP DOWN/TILESET VILLAGE TOP DOWN.png" id="4_tomun"]
 [ext_resource type="Texture2D" uid="uid://c4hf2pyk746uh" path="res://assets/Pixel Art Top Down - Basic/TILESET VILLAGE TOP DOWN/WATER TILE - DAY.png" id="5_qnjf6"]
-[ext_resource type="PackedScene" uid="uid://7mybdearsbx" path="res://scenes/goblin_slinger.tscn" id="6_ulhdx"]
+[ext_resource type="Script" path="res://gd_scripts/enemy_spawner.gd" id="7_f3ncc"]
 [ext_resource type="PackedScene" uid="uid://in2d5hdwss74" path="res://scenes/player.tscn" id="7_n84n4"]
-[ext_resource type="PackedScene" uid="uid://b0fw5w6jwfnci" path="res://scenes/goblin_rider.tscn" id="8_hia4m"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_i2s5d"]
 texture = ExtResource("1_84b3e")
@@ -1832,11 +1831,9 @@ texture = ExtResource("5_qnjf6")
 position = Vector2(-0.0240173, 0.015564)
 shape = SubResource("RectangleShape2D_gcu7w")
 
-[node name="goblin_slinger2" parent="." instance=ExtResource("6_ulhdx")]
-position = Vector2(271, 232)
-
 [node name="player" parent="." instance=ExtResource("7_n84n4")]
 position = Vector2(365, 372)
 
-[node name="goblin_rider" parent="." instance=ExtResource("8_hia4m")]
-position = Vector2(167, 450)
+[node name="enemy_spawner" type="Node2D" parent="."]
+position = Vector2(311, 227)
+script = ExtResource("7_f3ncc")

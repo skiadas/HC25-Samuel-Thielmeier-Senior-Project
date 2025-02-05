@@ -1,10 +1,12 @@
-[gd_scene load_steps=71 format=3 uid="uid://in2d5hdwss74"]
+[gd_scene load_steps=77 format=3 uid="uid://in2d5hdwss74"]
 
 [ext_resource type="Script" path="res://gd_scripts/player.gd" id="1_cvg0u"]
 [ext_resource type="Texture2D" uid="uid://35nix2sabmmt" path="res://assets/Warrior_Pixel_Art/Foozle_2DC0009_Lucifer_Warrior_Pixel_Art/Down/Png/WarriorDownIdle.png" id="2_vq0n1"]
 [ext_resource type="Script" path="res://gd_scripts/hurtbox.gd" id="3_jvf2r"]
 [ext_resource type="Texture2D" uid="uid://djthjjhhmps5p" path="res://assets/Warrior_Pixel_Art/Foozle_2DC0009_Lucifer_Warrior_Pixel_Art/Left/Png/WarriorLeftIdle.png" id="4_8etk3"]
+[ext_resource type="Texture2D" uid="uid://ddtilblt7xu5w" path="res://assets/Warrior_Pixel_Art/Foozle_2DC0009_Lucifer_Warrior_Pixel_Art/Down/Png/WarriorDownHurt.png" id="4_sd28h"]
 [ext_resource type="Texture2D" uid="uid://dd73au557tfwp" path="res://assets/Warrior_Pixel_Art/Foozle_2DC0009_Lucifer_Warrior_Pixel_Art/Right/Png/WarriorRightIdle.png" id="5_gnvxk"]
+[ext_resource type="Texture2D" uid="uid://bwku8kxdxpjf7" path="res://assets/Warrior_Pixel_Art/Foozle_2DC0009_Lucifer_Warrior_Pixel_Art/Down/Png/WarriorDownDeath.png" id="5_o7crm"]
 [ext_resource type="Texture2D" uid="uid://bii2m7cuuxlhi" path="res://assets/Warrior_Pixel_Art/Foozle_2DC0009_Lucifer_Warrior_Pixel_Art/Up/Png/WarriorUpIdle.png" id="6_4hf2w"]
 [ext_resource type="Texture2D" uid="uid://cofpj4vplhvus" path="res://assets/Warrior_Pixel_Art/Foozle_2DC0009_Lucifer_Warrior_Pixel_Art/Down/Png/WarriorDownAttack01.png" id="7_4fk6h"]
 [ext_resource type="Texture2D" uid="uid://cqy10k2pvdoqn" path="res://assets/Warrior_Pixel_Art/Foozle_2DC0009_Lucifer_Warrior_Pixel_Art/Left/Png/WarriorLeftAttack01.png" id="8_l27ld"]
@@ -24,7 +26,7 @@ radius = 4.0
 height = 24.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3e0ex"]
-size = Vector2(17.5, 17.5)
+size = Vector2(19.75, 19.75)
 
 [sub_resource type="Animation" id="Animation_0mwei"]
 length = 0.001
@@ -75,6 +77,58 @@ tracks/3/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_v5v8o"]
+resource_name = "die"
+step = 0.16
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.32),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [ExtResource("4_sd28h"), ExtResource("5_o7crm")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Body:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.32),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [4, 5]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Body:vframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.32),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [1, 1]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Body:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.166667, 0.32, 0.48, 0.64, 0.8, 0.96),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [2, 3, 0, 1, 2, 3, 4]
 }
 
 [sub_resource type="Animation" id="Animation_jpll2"]
@@ -984,6 +1038,7 @@ tracks/3/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_67mx7"]
 _data = {
 "RESET": SubResource("Animation_0mwei"),
+"die": SubResource("Animation_v5v8o"),
 "idle_down": SubResource("Animation_jpll2"),
 "idle_left": SubResource("Animation_am3s3"),
 "idle_right": SubResource("Animation_dpf05"),
@@ -1001,6 +1056,9 @@ _data = {
 "walk_right": SubResource("Animation_lkeir"),
 "walk_up": SubResource("Animation_4vk7p")
 }
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_tp84b"]
+animation = &"die"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_8v7n8"]
 animation = &"idle_left"
@@ -1045,12 +1103,9 @@ blend_point_0/pos = Vector2(-1, 0)
 blend_point_1/node = SubResource("AnimationNodeAnimation_6ob4h")
 blend_point_1/pos = Vector2(1, 0)
 blend_point_2/node = SubResource("AnimationNodeAnimation_gubdq")
-blend_point_2/pos = Vector2(0, -1.1)
+blend_point_2/pos = Vector2(0, -1)
 blend_point_3/node = SubResource("AnimationNodeAnimation_liktn")
-blend_point_3/pos = Vector2(0, 1.1)
-min_space = Vector2(-1, -1.1)
-max_space = Vector2(1, 1.1)
-blend_mode = 1
+blend_point_3/pos = Vector2(0, 1)
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_fwquh"]
 animation = &"tackle_left"
@@ -1100,9 +1155,6 @@ min_space = Vector2(-1, -1.1)
 max_space = Vector2(1, 1.1)
 blend_mode = 1
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_8vkpj"]
-advance_mode = 2
-
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ko4e6"]
 advance_mode = 2
 advance_condition = &"swing"
@@ -1147,16 +1199,30 @@ switch_mode = 2
 advance_mode = 2
 advance_condition = &"is_walking"
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_wx2hd"]
+advance_mode = 2
+advance_condition = &"die"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_aykjp"]
+advance_mode = 2
+advance_condition = &"die"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_j2yvy"]
+advance_mode = 2
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_c1r4p"]
+states/Start/position = Vector2(83, 100)
+states/die/node = SubResource("AnimationNodeAnimation_tp84b")
+states/die/position = Vector2(561, 100)
 states/idle/node = SubResource("AnimationNodeBlendSpace2D_e7ui3")
-states/idle/position = Vector2(377, 100)
+states/idle/position = Vector2(261, 100)
 states/swing/node = SubResource("AnimationNodeBlendSpace2D_nikpt")
-states/swing/position = Vector2(505, 255.965)
+states/swing/position = Vector2(505, 291.965)
 states/tackle/node = SubResource("AnimationNodeBlendSpace2D_q4d3u")
-states/tackle/position = Vector2(505, -48.035)
+states/tackle/position = Vector2(505, -93.035)
 states/walk/node = SubResource("AnimationNodeBlendSpace2D_gl7q8")
-states/walk/position = Vector2(621, 100)
-transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_8vkpj"), "idle", "swing", SubResource("AnimationNodeStateMachineTransition_ko4e6"), "swing", "walk", SubResource("AnimationNodeStateMachineTransition_507i0"), "walk", "idle", SubResource("AnimationNodeStateMachineTransition_u4scb"), "idle", "walk", SubResource("AnimationNodeStateMachineTransition_rk6uy"), "walk", "swing", SubResource("AnimationNodeStateMachineTransition_7djka"), "swing", "idle", SubResource("AnimationNodeStateMachineTransition_o75l5"), "idle", "tackle", SubResource("AnimationNodeStateMachineTransition_ewrwf"), "tackle", "idle", SubResource("AnimationNodeStateMachineTransition_03gwy"), "walk", "tackle", SubResource("AnimationNodeStateMachineTransition_gimns"), "tackle", "walk", SubResource("AnimationNodeStateMachineTransition_aa6bp")]
+states/walk/position = Vector2(746, 100)
+transitions = ["idle", "swing", SubResource("AnimationNodeStateMachineTransition_ko4e6"), "swing", "walk", SubResource("AnimationNodeStateMachineTransition_507i0"), "walk", "idle", SubResource("AnimationNodeStateMachineTransition_u4scb"), "idle", "walk", SubResource("AnimationNodeStateMachineTransition_rk6uy"), "walk", "swing", SubResource("AnimationNodeStateMachineTransition_7djka"), "swing", "idle", SubResource("AnimationNodeStateMachineTransition_o75l5"), "idle", "tackle", SubResource("AnimationNodeStateMachineTransition_ewrwf"), "tackle", "idle", SubResource("AnimationNodeStateMachineTransition_03gwy"), "walk", "tackle", SubResource("AnimationNodeStateMachineTransition_gimns"), "tackle", "walk", SubResource("AnimationNodeStateMachineTransition_aa6bp"), "idle", "die", SubResource("AnimationNodeStateMachineTransition_wx2hd"), "walk", "die", SubResource("AnimationNodeStateMachineTransition_aykjp"), "Start", "idle", SubResource("AnimationNodeStateMachineTransition_j2yvy")]
 graph_offset = Vector2(0, -120.035)
 
 [node name="player" type="CharacterBody2D"]
@@ -1165,10 +1231,6 @@ y_sort_enabled = true
 script = ExtResource("1_cvg0u")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-limit_left = 0
-limit_top = 0
-limit_right = 1150
-limit_bottom = 650
 
 [node name="Body" type="Sprite2D" parent="."]
 texture = ExtResource("2_vq0n1")
@@ -1187,10 +1249,10 @@ script = ExtResource("3_jvf2r")
 shape = SubResource("RectangleShape2D_3e0ex")
 
 [node name="ColorRect" type="ColorRect" parent="hurtbox"]
-offset_left = -9.0
-offset_top = -9.0
-offset_right = 9.0
-offset_bottom = 9.0
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
 color = Color(1, 0.54902, 1, 0.290196)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -1202,6 +1264,7 @@ autoplay = "idle_down"
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource("AnimationNodeStateMachine_c1r4p")
 anim_player = NodePath("../AnimationPlayer")
+parameters/conditions/die = false
 parameters/conditions/idle = false
 parameters/conditions/is_walking = false
 parameters/conditions/swing = false
@@ -1210,6 +1273,16 @@ parameters/idle/blend_position = Vector2(0, 0)
 parameters/swing/blend_position = Vector2(0, 0)
 parameters/tackle/blend_position = Vector2(0, 0)
 parameters/walk/blend_position = Vector2(0, 0)
+
+[node name="healthbar" type="ProgressBar" parent="."]
+modulate = Color(0.14902, 1, 0.14902, 1)
+offset_left = -10.0
+offset_top = -21.0
+offset_right = 90.0
+offset_bottom = 6.0
+scale = Vector2(0.2, 0.2)
+fill_mode = 1
+show_percentage = false
 
 [connection signal="body_entered" from="hurtbox" to="." method="_on_hurtbox_body_entered"]
 [connection signal="body_exited" from="hurtbox" to="." method="_on_hurtbox_body_exited"]
